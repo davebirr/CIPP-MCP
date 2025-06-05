@@ -1,8 +1,12 @@
-
 # CIPP MCP Integration Project
 
 ## Project Overview and Goals
 The goal of this project is to enable M365 Copilot to use a specialized agent that communicates with the CIPP project using the Model Context Protocol (MCP). This will allow Copilot to solve tasks or fetch data through the existing CIPP API.
+
+> **References:**
+> - [MCP documentation](https://modelcontextprotocol.io/introduction)
+> - [Microsoft MCP Blog: Introducing Model Context Protocol (MCP) in Copilot Studio](https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/introducing-model-context-protocol-mcp-in-copilot-studio-simplified-integration-with-ai-apps-and-agents)
+> - [CIPP Feature Request #3975](https://github.com/KelvinTegelaar/CIPP/issues/3975)
 
 ## Current Architecture
 - **CIPP:** Node.js (JavaScript) user interface hosted as an Azure Static Web App.
