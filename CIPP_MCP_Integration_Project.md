@@ -45,6 +45,8 @@ Validate redirect URIs and enforce strict token scoping.
 Isolate user sessions and avoid leaking tokens to clients.
 
 ## Current HTTP Endpoints in CIPP-API
+We will likely not want to instrument everything in this list for MCP. The most logical place to start is with simple, read-only functions. Ideally we get some community or dev input on which funcitons would be most useful and create a 'That's really cool!' moment with prototype. The AI is infinitely patient and can interate over data many times so one pattern may be fetching a large read and then reasoning over it to get what the users wants. Ideas so far have been complex reporting scenarios such as 'Every P1 licensed user that logged in on last friday from an ipad and used the outlook app' and health check automation  pulls. Another good idea is limited MCP exposure to *customer* AI agents.
+
 | Function Name | Function Group |
 |---|---|
 | ExecAddAlert | HTTP Functions\CIPP\Core |
