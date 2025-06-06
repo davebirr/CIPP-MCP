@@ -33,10 +33,8 @@ This means:
 All API calls are made by the MCP server, not directly by the AI agent or host.
 
 ### Why This Matters for Security
-Your security model—restricting API access to only the MCP server—is aligned with best practices. Here's why:
-
 MCP servers act as controlled gateways: They expose only the tools, data, and prompts we explicitly configure. Access to CIPP-API will be externally controlled by Azure, the same way it is the SWA
-OAuth 2.1 and gateway policies can be applied at the MCP server level to enforce authentication, authorization, and auditing 4.
+OAuth 2.1 and gateway policies can be applied at the MCP server level to enforce authentication, authorization, and auditing.
 
 ### Security Considerations
 We cannot allow the MCP server to proxy requests from a third-party API
