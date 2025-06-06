@@ -12,22 +12,21 @@ The goal of this project is to enable M365 Copilot to use a specialized agent th
 - **CIPP:** Node.js (JavaScript) user interface hosted as an Azure Static Web App.
 - **CIPP-API:** Azure Function App written in PowerShell, primarily making calls to the Microsoft Graph API and other Microsoft APIs to fetch data and perform tasks for the end user using the static web app.
 
-## Decision to Add a New CIPP-MCP Azure Function App
+## Proposed Architecture
+- New Function App alongside existing function app. The MCP server will behave like the CIPP SWA
 - **Language:** C# (.NET)
 - **Purpose:** Implement MCP streamable HTTP endpoints to facilitate communication between M365 Copilot and the CIPP project.
 
-## Integration Approach
+### Integration Approach
 1. **M365 Copilot (via MCP agent)** sends a request to the MCP streamable HTTP endpoint.
-2. **MCP Endpoint (C#)** receives the request, parses the MCP payload, and determines which PowerShell function(s) to call.
+2. **MCP Endpoint (CIPP-MCP)** receives the request, parses the MCP payload, and determines which PowerShell function(s) to call.
 3. **MCP Endpoint** calls the appropriate PowerShell function(s) via HTTP.
 4. **PowerShell Function** executes the business logic and returns results.
 5. **MCP Endpoint** streams the response back to the agent, following MCP streaming conventions.
 
-## Who Makes the API Call?
-In the MCP architecture:
-
-MCP Clients (embedded in AI agents or hosts like Claude Desktop, Copilot Studio, etc.) initiate requests for tools, data, or prompts.
-MCP Servers are the components that actually execute those requests, including making outbound API calls to third-party services or internal systems.
+### Who Makes the API Call?
+In the MCP architecture, MCP Clients (embedded in AI agents or hosts like Claude Desktop, Copilot Studio, etc.) initiate requests for tools, data, or prompts.
+MCP Servers (CIPP-MCP) are the the components that actually execute those requests, including making outbound API calls to CIPP-API.
 This means:
 
 All API calls are made by the MCP server, not directly by the AI agent or host.
