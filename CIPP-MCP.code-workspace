@@ -1,0 +1,61 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "Prompts"
+		},
+		{
+			"path": "Resources"
+		},
+		{
+			"path": "Tools"
+		},
+		{
+			"path": "Docker"
+		},
+		{
+			"path": "samples"
+		},
+		{
+			"path": "Scripts"
+		},
+		{
+			"path": "Tests"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/bin": true,
+			"**/obj": true
+		},
+		"editor.tabSize": 4,
+		"editor.formatOnSave": true,
+		"dotnet.defaultSolution": "",
+		"cSpell.words": [
+			"APPINSIGHTS",
+			"CIPP",
+			"INSTRUMENTATIONKEY"
+		],
+		"debug.internalConsoleOptions": "neverOpen",
+		// Optional: Add more settings
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-dotnettools.csdevkit",
+			"ms-dotnettools.vscode-dotnet-runtime",
+			"github.copilot",
+			"github.copilot-chat",
+			"christian-kohler.path-intellisense",
+			"yzhang.markdown-all-in-one",
+			"humao.rest-client",
+			"EditorConfig.EditorConfig",
+			"usernamehw.errorlens",
+			"ms-azuretools.vscode-docker",
+			"ms-vscode.vscode-node-azure-pack",
+			"alefragnani.Bookmarks",
+			"alefragnani.project-manager"
+		],
+	}
+}

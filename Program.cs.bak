@@ -1,0 +1,67 @@
+using CippMcp.Tools;
+using Microsoft.AspNetCore.Connections;
+using ModelContextProtocol.AspNetCore;
+using Serilog;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Optionally configure Kestrel port
+int port = args.Length > 0 && uint.TryParse(args[0], out var parsedPort) ? (int)parsedPort : 5000;
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(port);
+});
+
+// Add logging
+builder.Logging.AddConsole();
+// builder.Host.UseSerilog(); // Uncomment if using Serilog
+
+// Add MCP server and tools
+builder.Services.AddMcpServer(options =>
+{
+    options.ProtocolVersion = "2024-11-05";
+    options.ServerInstructions = "This is a test server with only stub functionality";
+})
+.WithHttpTransport(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(1);
+    options.MaxIdleSessionCount = 100;
+    options.ConfigureSessionOptions = (httpContext, serverOptions, cancellationToken) =>
+    {
+        serverOptions.ServerInfo = new ModelContextProtocol.Protocol.Implementation
+        {
+            Name = "MyCustomServer",
+            Version = "1.0.0"
+        };
+        return Task.CompletedTask;
+    };
+    options.RunSessionHandler = (httpContext, mcpServer, cancellationToken) =>
+    {
+        Console.WriteLine($"Starting session for user: {httpContext.User.Identity?.Name}");
+        return mcpServer.RunAsync(cancellationToken);
+    };
+})
+.WithTools<MonkeyTools>()
+.WithTools<WeatherServiceTools>();
+
+var prevColor = Console.ForegroundColor;
+Console.ForegroundColor = ConsoleColor.Cyan;
+Console.WriteLine("[MCP] Registered tools: MonkeyTools, WeatherServiceTools");
+Console.ForegroundColor = prevColor;
+
+var app = builder.Build();
+app.UseRouting();
+app.UseEndpoints(_ => { });
+
+// Add a test endpoint to verify server is running
+app.MapGet("/test", () =>
+{
+    Console.WriteLine("/test endpoint hit");
+    return "Hello, world!";
+});
+
+Console.WriteLine("[TRACE] Registering MCP endpoint...");
+app.MapMcp("/mcp");
+Console.WriteLine("[TRACE] MCP endpoint registration complete.");
+
+app.Run();

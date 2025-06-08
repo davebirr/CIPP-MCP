@@ -1,0 +1,10 @@
+{
+  // ...existing code...
+  "servers": {
+    // ...other servers...
+    "CippMcp": {
+      "type": "http",
+      "url": "http://localhost:3001/mcp"
+    },
+  }
+}

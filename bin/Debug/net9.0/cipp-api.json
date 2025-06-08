@@ -1,0 +1,5072 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CIPP-API",
+    "version": "1.0.0",
+    "description": "OpenAPI definition for the CIPP-API Azure Functions project. All endpoints are anonymous (external authentication via MCP). Tags are based on folder grouping. Descriptions are based on function names and available codebase context."
+  },
+  "servers": [
+    {
+      "url": "https://YOUR-API-URL-HERE/",
+      "description": "Replace with your deployed API base URL in CI/CD."
+    }
+  ],
+  "paths": {
+    "/AddGroup": {
+      "post": {
+        "summary": "Add a group",
+        "description": "Adds a group to the selected tenants.",
+        "tags": ["AddGroup"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "selectedTenants": {"type": "string"},
+                  "tenantid": {"type": "string"}
+                },
+                "required": ["selectedTenants", "tenantid"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddChocoApp": {
+      "post": {
+        "summary": "Add a Chocolatey app",
+        "description": "Adds a Chocolatey application to the tenant(s).",
+        "tags": ["AddChocoApp"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "InstallationIntent": {"type": "string"},
+                  "AssignTo": {"type": "string"}
+                },
+                "required": ["InstallationIntent", "AssignTo"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveUser": {
+      "get": {
+        "summary": "Remove a user",
+        "description": "Removes a user from the specified tenant.",
+        "tags": ["RemoveUser"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListTeams": {
+      "get": {
+        "summary": "List teams",
+        "description": "Retrieves a list of teams based on the specified filters.",
+        "tags": ["ListTeams"],
+        "parameters": [
+          {"name": "type", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecGroupsDelete": {
+      "get": {
+        "summary": "Delete a group",
+        "description": "Executes the deletion of a group based on the specified parameters.",
+        "tags": ["ExecGroupsDelete"],
+        "parameters": [
+          {"name": "GroupType", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "displayName", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListRoles": {
+      "get": {
+        "summary": "List roles",
+        "description": "Retrieves a list of roles for the specified tenant.",
+        "tags": ["ListRoles"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListUserMailboxRules": {
+      "get": {
+        "summary": "List user mailbox rules",
+        "description": "Retrieves the mailbox rules for a specified user.",
+        "tags": ["ListUserMailboxRules"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecBECCheck": {
+      "get": {
+        "summary": "Check BEC status",
+        "description": "Executes a check for BEC (Business Email Compromise) status for the specified parameters.",
+        "tags": ["ExecBECCheck"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "GUID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "userid", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListCalendarPermissions": {
+      "get": {
+        "summary": "List calendar permissions",
+        "description": "Retrieves the calendar permissions for a specified user.",
+        "tags": ["ListCalendarPermissions"],
+        "parameters": [
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecAddSPN": {
+      "get": {
+        "summary": "Add or remove SPN",
+        "description": "Executes the addition or removal of a Service Principal Name (SPN) for the specified tenant.",
+        "tags": ["ExecAddSPN"],
+        "parameters": [
+          {"name": "Enable", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListLicenses": {
+      "get": {
+        "summary": "List licenses",
+        "description": "Retrieves a list of licenses for the specified tenant.",
+        "tags": ["ListLicenses"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddCATemplate": {
+      "post": {
+        "summary": "Add a CA template",
+        "description": "Adds a Conditional Access template to the specified tenant.",
+        "tags": ["AddCATemplate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rawjson": {"type": "string"},
+                  "name": {"type": "string"}
+                },
+                "required": ["rawjson", "name"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecIncidentsList": {
+      "get": {
+        "summary": "List incidents",
+        "description": "Retrieves a list of incidents for the specified tenant.",
+        "tags": ["ExecIncidentsList"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddSharedMailbox": {
+      "post": {
+        "summary": "Add a shared mailbox",
+        "description": "Adds a shared mailbox to the specified tenant.",
+        "tags": ["AddSharedMailbox"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tenantid": {"type": "string"}
+                },
+                "required": ["tenantid"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListApps": {
+      "get": {
+        "summary": "List installed apps",
+        "description": "Retrieves a list of installed apps for the specified tenant.",
+        "tags": ["ListApps"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListSharepointSettings": {
+      "get": {
+        "summary": "List SharePoint settings",
+        "description": "Retrieves SharePoint settings for the specified user and tenant.",
+        "tags": ["ListSharepointSettings"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "usertoGet", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "user", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecSendOrgMessage": {
+      "get": {
+        "summary": "Send an organizational message",
+        "description": "Executes the sending of an organizational message to the specified recipients.",
+        "tags": ["ExecSendOrgMessage"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "URL", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "type", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "freq", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddSpamFilterTemplate": {
+      "post": {
+        "summary": "Add a spam filter template",
+        "description": "Adds a spam filter template to the specified tenant.",
+        "tags": ["AddSpamFilterTemplate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "PowerShellCommand": {"type": "string"},
+                  "name": {"type": "string"}
+                },
+                "required": ["PowerShellCommand", "name"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListGroupTemplates": {
+      "get": {
+        "summary": "List group templates",
+        "description": "Retrieves a list of group templates based on the specified filters.",
+        "tags": ["ListGroupTemplates"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListAutopilotconfig": {
+      "get": {
+        "summary": "List Autopilot configurations",
+        "description": "Retrieves a list of Autopilot configurations for the specified tenant.",
+        "tags": ["ListAutopilotconfig"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "type", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecSetSecurityIncident": {
+      "get": {
+        "summary": "Set security incident",
+        "description": "Executes the setting of a security incident based on the specified parameters.",
+        "tags": ["ExecSetSecurityIncident"],
+        "parameters": [
+          {"name": "Redirected", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Determination", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Status", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Classification", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "GUID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Assigned", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EditExConnector": {
+      "get": {
+        "summary": "Edit an ExConnector",
+        "description": "Executes the editing of an ExConnector based on the specified parameters.",
+        "tags": ["EditExConnector"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "guid", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "state", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Type", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddUser": {
+      "post": {
+        "summary": "Add a user",
+        "description": "Adds a new user to the specified tenant.",
+        "tags": ["AddUser"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CopyFrom": {"type": "string"}
+                },
+                "required": ["CopyFrom"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListUserPhoto": {
+      "get": {
+        "summary": "Get user photo",
+        "description": "Retrieves the photo of a specified user.",
+        "tags": ["ListUserPhoto"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListConditionalAccessPolicies": {
+      "get": {
+        "summary": "List conditional access policies",
+        "description": "Retrieves a list of conditional access policies for the specified tenant.",
+        "tags": ["ListConditionalAccessPolicies"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListBasicAuth": {
+      "get": {
+        "summary": "List basic authentication settings",
+        "description": "Retrieves the basic authentication settings for the specified tenant.",
+        "tags": ["ListBasicAuth"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveSpamfilterTemplate": {
+      "get": {
+        "summary": "Remove a spam filter template",
+        "description": "Removes a spam filter template from the specified tenant.",
+        "tags": ["RemoveSpamfilterTemplate"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecGDAPInvite": {
+      "post": {
+        "summary": "Invite to GDAP",
+        "description": "Sends an invitation to the specified GDAP (Granular Delegated Admin Privileges) role.",
+        "tags": ["ExecGDAPInvite"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "gdapRoles": {"type": "string"}
+                },
+                "required": ["gdapRoles"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListUserSigninLogs": {
+      "get": {
+        "summary": "List user sign-in logs",
+        "description": "Retrieves the sign-in logs for a specified user.",
+        "tags": ["ListUserSigninLogs"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EditCAPolicy": {
+      "get": {
+        "summary": "Edit a CA policy",
+        "description": "Executes the editing of a Conditional Access policy based on the specified parameters.",
+        "tags": ["EditCAPolicy"],
+        "parameters": [
+          {"name": "tenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "guid", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "state", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListDomainHealth": {
+      "get": {
+        "summary": "List domain health",
+        "description": "Retrieves the health status of the specified domain.",
+        "tags": ["ListDomainHealth"],
+        "parameters": [
+          {"name": "Action", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Record", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ExpectedInclude", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Domain", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Subdomains", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Selector", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecUniversalSearch": {
+      "get": {
+        "summary": "Universal search",
+        "description": "Executes a universal search based on the specified name.",
+        "tags": ["ExecUniversalSearch"],
+        "parameters": [
+          {"name": "name", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMailboxCAS": {
+      "get": {
+        "summary": "List mailbox CAS (Client Access Server) settings",
+        "description": "Retrieves the CAS settings for the specified tenant.",
+        "tags": ["ListMailboxCAS"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveExConnectorTemplate": {
+      "get": {
+        "summary": "Remove an ExConnector template",
+        "description": "Removes an ExConnector template from the specified tenant.",
+        "tags": ["RemoveExConnectorTemplate"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListUserCounts": {
+      "get": {
+        "summary": "List user counts",
+        "description": "Retrieves the count of users for the specified tenant.",
+        "tags": ["ListUserCounts"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecGetLocalAdminPassword": {
+      "get": {
+        "summary": "Get local admin password",
+        "description": "Retrieves the local admin password for the specified device and tenant.",
+        "tags": ["ExecGetLocalAdminPassword"],
+        "parameters": [
+          {"name": "guid", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListOrg": {
+      "get": {
+        "summary": "List organizations",
+        "description": "Retrieves a list of organizations for the specified tenant.",
+        "tags": ["ListOrg"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecExcludeLicenses": {
+      "post": {
+        "summary": "Exclude licenses",
+        "description": "Executes the exclusion of licenses for the specified tenant.",
+        "tags": ["ExecExcludeLicenses"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "SKUName": {"type": "string"},
+                  "AddExclusion": {"type": "string"},
+                  "RemoveExclusion": {"type": "string"},
+                  "GUID": {"type": "string"},
+                  "TenantFilter": {"type": "string"},
+                  "List": {"type": "string"}
+                },
+                "required": ["SKUName", "AddExclusion", "RemoveExclusion", "GUID", "TenantFilter", "List"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Exclude licenses",
+        "description": "Executes the exclusion of licenses for the specified tenant.",
+        "tags": ["ExecExcludeLicenses"],
+        "parameters": [
+          {"name": "SKUName", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "AddExclusion", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "RemoveExclusion", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "GUID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "List", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecDeleteGDAPRelationship": {
+      "get": {
+        "summary": "Delete GDAP relationship",
+        "description": "Executes the deletion of a GDAP (Granular Delegated Admin Privileges) relationship.",
+        "tags": ["ExecDeleteGDAPRelationship"],
+        "parameters": [
+          {"name": "GDAPId", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddMSPApp": {
+      "post": {
+        "summary": "Add an MSP app",
+        "description": "Adds an MSP (Managed Service Provider) application to the tenant(s).",
+        "tags": ["AddMSPApp"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "selectedTenants": {"type": "string"},
+                  "AssignTo": {"type": "string"}
+                },
+                "required": ["selectedTenants", "AssignTo"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EditPolicy": {
+      "post": {
+        "summary": "Edit a policy",
+        "description": "Edits an existing policy for the specified tenant.",
+        "tags": ["EditPolicy"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Description": {"type": "string"},
+                  "Displayname": {"type": "string"},
+                  "tenantid": {"type": "string"},
+                  "Assignto": {"type": "string"},
+                  "groupid": {"type": "string"}
+                },
+                "required": ["Description", "Displayname", "tenantid", "Assignto", "groupid"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecDeviceAction": {
+      "post": {
+        "summary": "Execute a device action",
+        "description": "Executes a specified action on a device for the given tenant.",
+        "tags": ["ExecDeviceAction"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": {"type": "string"},
+                  "TenantFilter": {"type": "string"},
+                  "Action": {"type": "string"},
+                  "GUID": {"type": "string"}
+                },
+                "required": ["input", "TenantFilter", "Action", "GUID"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "ExecDeviceAction",
+        "summary": "ExecDeviceAction",
+        "tags": [
+          "GET"
+        ],
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "name": "input",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "name": "TenantFilter",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "name": "Action",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "name": "GUID",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {},
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/AddWinGetApp": {
+      "post": {
+        "summary": "Add a WinGet app",
+        "description": "Adds a WinGet application to the tenant(s).",
+        "tags": ["AddWinGetApp"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "InstallationIntent": {"type": "string"},
+                  "AssignTo": {"type": "string"}
+                },
+                "required": ["InstallationIntent", "AssignTo"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemovePolicy": {
+      "get": {
+        "summary": "Remove a policy",
+        "description": "Removes a policy from the specified tenant.",
+        "tags": ["RemovePolicy"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "URLName", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddExConnector": {
+      "post": {
+        "summary": "Add an ExConnector",
+        "description": "Adds a new ExConnector to the specified tenant.",
+        "tags": ["AddExConnector"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "PowerShellCommand": {"type": "string"}
+                },
+                "required": ["PowerShellCommand"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListTeamsVoice": {
+      "get": {
+        "summary": "List Teams Voice",
+        "description": "Retrieves voice settings for teams in the specified tenant.",
+        "tags": ["ListTeamsVoice"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListTeamsActivity": {
+      "get": {
+        "summary": "List Teams Activity",
+        "description": "Retrieves the activity logs for teams in the specified tenant.",
+        "tags": ["ListTeamsActivity"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Type", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListSpamFilterTemplates": {
+      "get": {
+        "summary": "List spam filter templates",
+        "description": "Retrieves a list of spam filter templates for the specified tenant.",
+        "tags": ["ListSpamFilterTemplates"],
+        "parameters": [
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecCopyForSent": {
+      "get": {
+        "summary": "Copy for Sent As",
+        "description": "Executes the configuration of 'Send As' permissions for the specified user and tenant.",
+        "tags": ["ExecCopyForSent"],
+        "parameters": [
+          {"name": "MessageCopyForSentAsEnabled", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListAzureADConnectStatus": {
+      "get": {
+        "summary": "List Azure AD Connect status",
+        "description": "Retrieves the Azure AD Connect status for the specified tenant.",
+        "tags": ["ListAzureADConnectStatus"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "DataToReturn", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecEnableArchive": {
+      "get": {
+        "summary": "Enable archive",
+        "description": "Executes the enabling of archive for the specified mailbox and tenant.",
+        "tags": ["ExecEnableArchive"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecGetRecoveryKey": {
+      "get": {
+        "summary": "Get recovery key",
+        "description": "Retrieves the recovery key for the specified tenant and GUID.",
+        "tags": ["ExecGetRecoveryKey"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "GUID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListSharedMailboxStatistics": {
+      "get": {
+        "summary": "List shared mailbox statistics",
+        "description": "Retrieves statistics for shared mailboxes in the specified tenant.",
+        "tags": ["ListSharedMailboxStatistics"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListPotentialApps": {
+      "post": {
+        "summary": "List potential apps",
+        "description": "Retrieves a list of potential apps based on the specified criteria.",
+        "tags": ["ListPotentialApps"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {"type": "string"},
+                  "SearchString": {"type": "string"}
+                },
+                "required": ["type", "SearchString"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecCPVPermissions": {
+      "get": {
+        "summary": "Exec CPV permissions",
+        "description": "Executes the retrieval of CPV (Cloud PC Virtualization) permissions for the specified tenant.",
+        "tags": ["ExecCPVPermissions"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListSharepointQuota": {
+      "get": {
+        "summary": "List SharePoint quota",
+        "description": "Retrieves the quota settings for SharePoint in the specified tenant.",
+        "tags": ["ListSharepointQuota"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListDefenderTVM": {
+      "get": {
+        "summary": "List Defender TVM (Threat and Vulnerability Management) settings",
+        "description": "Retrieves the TVM settings for Defender in the specified tenant.",
+        "tags": ["ListDefenderTVM"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecEditMailboxPermissions": {
+      "post": {
+        "summary": "Edit mailbox permissions",
+        "description": "Edits the permissions of a mailbox for the specified user and tenant.",
+        "tags": ["ExecEditMailboxPermissions"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "AddSendAs": {"type": "string"},
+                  "tenantfilter": {"type": "string"},
+                  "userID": {"type": "string"},
+                  "AddFullAccess": {"type": "string"},
+                  "AccessAutomap": {"type": "string"},
+                  "AddFullAccessNoAutoMap": {"type": "string"},
+                  "RemoveFullAccess": {"type": "string"},
+                  "RemoveSendAs": {"type": "string"}
+                },
+                "required": ["AddSendAs", "tenantfilter", "userID", "AddFullAccess", "AccessAutomap", "AddFullAccessNoAutoMap", "RemoveFullAccess", "RemoveSendAs"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddOfficeApp": {
+      "post": {
+        "summary": "Add an Office app",
+        "description": "Adds an Office application to the tenant(s).",
+        "tags": ["AddOfficeApp"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "AcceptLicense": {"type": "string"},
+                  "languages": {"type": "string"},
+                  "SharedComputerActivation": {"type": "string"},
+                  "updateChannel": {"type": "string"},
+                  "excludedApps": {"type": "string"},
+                  "arch": {"type": "string"},
+                  "Assignto": {"type": "string"},
+                  "RemoveVersions": {"type": "string"}
+                },
+                "required": ["AcceptLicense", "languages", "SharedComputerActivation", "updateChannel", "excludedApps", "arch", "Assignto", "RemoveVersions"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EditSpamFilter": {
+      "get": {
+        "summary": "Edit a spam filter",
+        "description": "Executes the editing of a spam filter based on the specified parameters.",
+        "tags": ["EditSpamFilter"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "name", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "state", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListSignIns": {
+      "get": {
+        "summary": "List sign-ins",
+        "description": "Retrieves a list of sign-ins for the specified tenant.",
+        "tags": ["ListSignIns"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "failedlogonOnly", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Filter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecDnsConfig": {
+      "get": {
+        "summary": "DNS configuration",
+        "description": "Executes the configuration of DNS settings based on the specified parameters.",
+        "tags": ["ExecDnsConfig"],
+        "parameters": [
+          {"name": "Action", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Resolver", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Domain", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecEmailForward": {
+      "post": {
+        "summary": "Configure email forwarding",
+        "description": "Configures email forwarding settings for the specified user and tenant.",
+        "tags": ["ExecEmailForward"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "disableForwarding": {"type": "string"},
+                  "tenantfilter": {"type": "string"},
+                  "ForwardExternal": {"type": "string"},
+                  "ForwardInternal": {"type": "string"},
+                  "userID": {"type": "string"},
+                  "keepCopy": {"type": "string"}
+                },
+                "required": ["disableForwarding", "tenantfilter", "ForwardExternal", "ForwardInternal", "userID", "keepCopy"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecBECRemediate": {
+      "post": {
+        "summary": "Remediate BEC",
+        "description": "Executes the remediation of BEC (Business Email Compromise) for the specified tenant and user.",
+        "tags": ["ExecBECRemediate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tenantfilter": {"type": "string"},
+                  "userid": {"type": "string"}
+                },
+                "required": ["tenantfilter", "userid"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListPartnerRelationships": {
+      "get": {
+        "summary": "List partner relationships",
+        "description": "Retrieves a list of partner relationships for the specified tenant.",
+        "tags": ["ListPartnerRelationships"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListAppsRepository": {
+      "post": {
+        "summary": "List apps in repository",
+        "description": "Retrieves a list of apps in the specified repository.",
+        "tags": ["ListAppsRepository"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Repository": {"type": "string"},
+                  "Search": {"type": "string"}
+                },
+                "required": ["Repository", "Search"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecClrImmId": {
+      "get": {
+        "summary": "Clear ImmId",
+        "description": "Executes the clearing of an ImmId (Immutable ID) for the specified tenant and user.",
+        "tags": ["ExecClrImmId"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddGroupTemplate": {
+      "post": {
+        "summary": "Add a group template",
+        "description": "Adds a group template to the specified tenant.",
+        "tags": ["AddGroupTemplate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "membershipRule": {"type": "string"},
+                  "displayname": {"type": "string"},
+                  "allowExternal": {"type": "string"},
+                  "groupType": {"type": "string"},
+                  "description": {"type": "string"},
+                  "username": {"type": "string"}
+                },
+                "required": ["membershipRule", "displayname", "allowExternal", "groupType", "description", "username"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Standards_IntuneTemplate": {
+      "post": {
+        "summary": "Add an Intune template",
+        "description": "Adds a standards-based Intune template to the specified tenant.",
+        "tags": ["Standards_IntuneTemplate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Displayname": {"type": "string"},
+                  "RawJSON": {"type": "string"},
+                  "Description": {"type": "string"},
+                  "Type": {"type": "string"},
+                  "Assignto": {"type": "string"}
+                },
+                "required": ["Displayname", "RawJSON", "Description", "Type", "Assignto"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListIntuneTemplates": {
+      "get": {
+        "summary": "List Intune templates",
+        "description": "Retrieves a list of Intune templates for the specified tenant.",
+        "tags": ["ListIntuneTemplates"],
+        "parameters": [
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecResetPass": {
+      "get": {
+        "summary": "Reset password",
+        "description": "Executes the reset of a user's password in the specified tenant.",
+        "tags": ["ExecResetPass"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "MustChange", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "displayName", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecAlertsList": {
+      "get": {
+        "summary": "List alerts",
+        "description": "Retrieves a list of alerts for the specified tenant.",
+        "tags": ["ExecAlertsList"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecQuarantineManagement": {
+      "get": {
+        "summary": "Manage quarantine",
+        "description": "Executes the management of quarantine settings for the specified tenant.",
+        "tags": ["ExecQuarantineManagement"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "type", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "AllowSender", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecRestoreDeleted": {
+      "get": {
+        "summary": "Restore deleted item",
+        "description": "Executes the restoration of a deleted item for the specified tenant.",
+        "tags": ["ExecRestoreDeleted"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListUserGroups": {
+      "get": {
+        "summary": "List user groups",
+        "description": "Retrieves a list of groups for the specified user and tenant.",
+        "tags": ["ListUserGroups"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveStandard": {
+      "get": {
+        "summary": "Remove a standard",
+        "description": "Removes a standard from the specified tenant.",
+        "tags": ["RemoveStandard"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListUserConditionalAccessPolicies": {
+      "get": {
+        "summary": "List user conditional access policies",
+        "description": "Retrieves a list of conditional access policies for the specified user and tenant.",
+        "tags": ["ListUserConditionalAccessPolicies"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListCAtemplates": {
+      "get": {
+        "summary": "List CA templates",
+        "description": "Retrieves a list of Conditional Access templates for the specified tenant.",
+        "tags": ["ListCAtemplates"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListContacts": {
+      "get": {
+        "summary": "List contacts",
+        "description": "Retrieves a list of contacts for the specified tenant.",
+        "tags": ["ListContacts"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ContactID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMailboxRules": {
+      "get": {
+        "summary": "List mailbox rules",
+        "description": "Retrieves a list of mailbox rules for the specified tenant.",
+        "tags": ["ListMailboxRules"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListSites": {
+      "get": {
+        "summary": "List sites",
+        "description": "Retrieves a list of sites for the specified tenant and user.",
+        "tags": ["ListSites"],
+        "parameters": [
+          {"name": "Type", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserUPN", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecSetOoO": {
+      "post": {
+        "summary": "Set Out of Office",
+        "description": "Executes the configuration of Out of Office settings for the specified user and tenant.",
+        "tags": ["ExecSetOoO"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tenantfilter": {"type": "string"},
+                  "user": {"type": "string"},
+                  "input": {"type": "string"},
+                  "Disable": {"type": "string"}
+                },
+                "required": ["tenantfilter", "user", "input", "Disable"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddExConnectorTemplate": {
+      "post": {
+        "summary": "Add an ExConnector template",
+        "description": "Adds a new ExConnector template to the specified tenant.",
+        "tags": ["AddExConnectorTemplate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "cippconnectortype": {"type": "string"}
+                },
+                "required": ["name", "cippconnectortype"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecOffboardUser": {
+      "post": {
+        "summary": "Offboard a user",
+        "description": "Executes the offboarding of a user from the specified tenant.",
+        "tags": ["ExecOffboardUser"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keepCopy": {"type": "string"},
+                  "OnedriveAccess": {"type": "string"},
+                  "tenantfilter": {"type": "string"},
+                  "OOO": {"type": "string"},
+                  "AccessNoAutomap": {"type": "string"},
+                  "forward": {"type": "string"},
+                  "user": {"type": "string"}
+                },
+                "required": ["keepCopy", "OnedriveAccess", "tenantfilter", "OOO", "AccessNoAutomap", "forward", "user"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListTenantDetails": {
+      "get": {
+        "summary": "List tenant details",
+        "description": "Retrieves the details of the specified tenant.",
+        "tags": ["ListTenantDetails"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecConverttoSharedMailbox": {
+      "get": {
+        "summary": "Convert to shared mailbox",
+        "description": "Executes the conversion of a user mailbox to a shared mailbox.",
+        "tags": ["ExecConverttoSharedMailbox"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ConvertToUser", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecGraphRequest": {
+      "get": {
+        "summary": "Execute a Graph API request",
+        "description": "Executes a request to the Microsoft Graph API for the specified tenant.",
+        "tags": ["ExecGraphRequest"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Endpoint", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "DisablePagination", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListDefenderState": {
+      "get": {
+        "summary": "List Defender state",
+        "description": "Retrieves the state of Defender for the specified tenant.",
+        "tags": ["ListDefenderState"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMailQuarantine": {
+      "get": {
+        "summary": "List mail quarantine",
+        "description": "Retrieves the mail quarantine settings for the specified tenant.",
+        "tags": ["ListMailQuarantine"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListIntunePolicy": {
+      "get": {
+        "summary": "List Intune policy",
+        "description": "Retrieves the Intune policy for the specified tenant.",
+        "tags": ["ListIntunePolicy"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "URLName", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecRevokeSessions": {
+      "get": {
+        "summary": "Revoke sessions",
+        "description": "Executes the revocation of sessions for the specified user in the tenant.",
+        "tags": ["ExecRevokeSessions"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListmailboxPermissions": {
+      "get": {
+        "summary": "List mailbox permissions",
+        "description": "Retrieves the permissions of a mailbox for the specified user and tenant.",
+        "tags": ["ListmailboxPermissions"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecExtensionsConfig": {
+      "post": {
+        "summary": "Execute extensions configuration",
+        "description": "Executes the configuration of extensions for the specified tenant.",
+        "tags": ["ExecExtensionsConfig"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CIPPAPI": {"type": "string"}
+                },
+                "required": ["CIPPAPI"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListDevices": {
+      "get": {
+        "summary": "List devices",
+        "description": "Retrieves a list of devices for the specified tenant.",
+        "tags": ["ListDevices"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveCATemplate": {
+      "get": {
+        "summary": "Remove a CA template",
+        "description": "Removes a Conditional Access template from the specified tenant.",
+        "tags": ["RemoveCATemplate"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveQueuedApp": {
+      "get": {
+        "summary": "Remove a queued app",
+        "description": "Removes an app from the queued installations for the specified tenant.",
+        "tags": ["RemoveQueuedApp"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/DomainAnalyser_List": {
+      "get": {
+        "summary": "List domain analysis results",
+        "description": "Retrieves the results of domain analysis for the specified tenant.",
+        "tags": ["DomainAnalyser"],
+        "parameters": [
+          {"name": "tenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddNamedLocation": {
+      "post": {
+        "summary": "Add a named location",
+        "description": "Adds a named location for conditional access to the specified tenant.",
+        "tags": ["AddNamedLocation"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Ips": {"type": "string"},
+                  "includeUnknownCountriesAndRegions": {"type": "string"},
+                  "Countries": {"type": "string"},
+                  "Trusted": {"type": "string"},
+                  "policyName": {"type": "string"},
+                  "Type": {"type": "string"},
+                  "selectedTenants": {"type": "string"}
+                },
+                "required": ["Ips", "includeUnknownCountriesAndRegions", "Countries", "Trusted", "policyName", "Type", "selectedTenants"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListTransportRulesTemplates": {
+      "get": {
+        "summary": "List transport rules templates",
+        "description": "Retrieves a list of transport rules templates for the specified tenant.",
+        "tags": ["ListTransportRulesTemplates"],
+        "parameters": [
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecEditCalendarPermissions": {
+      "get": {
+        "summary": "Edit calendar permissions",
+        "description": "Executes the editing of calendar permissions for the specified user and tenant.",
+        "tags": ["ExecEditCalendarPermissions"],
+        "parameters": [
+          {"name": "permissions", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserToGetPermissions", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "removeaccess", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "folderName", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecDisableUser": {
+      "get": {
+        "summary": "Disable a user",
+        "description": "Executes the disabling of a user in the specified tenant.",
+        "tags": ["ExecDisableUser"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Enable", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddTransportRule": {
+      "post": {
+        "summary": "Add a transport rule",
+        "description": "Adds a new transport rule to the specified tenant.",
+        "tags": ["AddTransportRule"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "PowerShellCommand": {"type": "string"}
+                },
+                "required": ["PowerShellCommand"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListTenants": {
+      "get": {
+        "summary": "List tenants",
+        "description": "Retrieves a list of tenants based on the specified filters.",
+        "tags": ["ListTenants"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ClearCache", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantsOnly", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "AllTenantSelector", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecResetMFA": {
+      "get": {
+        "summary": "Reset MFA",
+        "description": "Executes the reset of Multi-Factor Authentication (MFA) for the specified user in the tenant.",
+        "tags": ["ExecResetMFA"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListIntuneIntents": {
+      "get": {
+        "summary": "List Intune intents",
+        "description": "Retrieves a list of Intune intents for the specified tenant.",
+        "tags": ["ListIntuneIntents"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListStandards": {
+      "get": {
+        "summary": "List standards",
+        "description": "Retrieves a list of standards for the specified tenant.",
+        "tags": ["ListStandards"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListDeletedItems": {
+      "get": {
+        "summary": "List deleted items",
+        "description": "Retrieves a list of deleted items for the specified tenant.",
+        "tags": ["ListDeletedItems"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecGroupsHideFromGAL": {
+      "get": {
+        "summary": "Hide groups from GAL",
+        "description": "Executes the hiding of groups from the Global Address List (GAL) for the specified tenant.",
+        "tags": ["ExecGroupsHideFromGAL"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "groupType", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "HidefromGAL", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecSendPush": {
+      "get": {
+        "summary": "Send a push notification",
+        "description": "Executes the sending of a push notification to the specified user in the tenant.",
+        "tags": ["ExecSendPush"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserEmail", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecExtensionMapping": {
+      "post": {
+        "summary": "Execute extension mapping",
+        "description": "Executes the mapping of extensions for the specified tenant.",
+        "tags": ["ExecExtensionMapping"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mappings": {"type": "string"},
+                  "List": {"type": "string"},
+                  "AddMapping": {"type": "string"}
+                },
+                "required": ["mappings", "List", "AddMapping"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "description": "ExecExtensionMapping",
+          "summary": "ExecExtensionMapping",
+          "tags": [
+            "GET"
+          ],
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "mappings",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "List",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "AddMapping",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {},
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "Successful operation"
+            }
+          }
+        }
+      }
+    },
+    "/ListAppStatus": {
+      "get": {
+        "summary": "List app status",
+        "description": "Retrieves the installation status of apps for the specified tenant.",
+        "tags": ["ListAppStatus"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "AppFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetVersion": {
+      "get": {
+        "summary": "Get API version",
+        "description": "Retrieves the current version of the API.",
+        "tags": ["GetVersion"],
+        "parameters": [
+          {"name": "localversion", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecMailboxMobileDevices": {
+      "get": {
+        "summary": "Exec mailbox mobile devices",
+        "description": "Executes the management of mobile devices for the specified mailbox and tenant.",
+        "tags": ["ExecMailboxMobileDevices"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Userid", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Quarantine", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Delete", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "deviceid", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveApp": {
+      "get": {
+        "summary": "Remove an app",
+        "description": "Removes an app from the specified tenant.",
+        "tags": ["RemoveApp"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecPasswordConfig": {
+      "post": {
+        "summary": "Execute password configuration",
+        "description": "Executes the configuration of password settings for the specified tenant.",
+        "tags": ["ExecPasswordConfig"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "List": {"type": "string"},
+                  "passwordType": {"type": "string"}
+                },
+                "required": ["List", "passwordType"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "description": "ExecPasswordConfig",
+          "summary": "ExecPasswordConfig",
+          "tags": [
+            "GET"
+          ],
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "List",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "passwordType",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {},
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "Successful operation"
+            }
+          }
+        }
+      }
+    },
+    "/ExecHideFromGAL": {
+      "get": {
+        "summary": "Hide from GAL",
+        "description": "Executes the hiding of a user or group from the Global Address List (GAL) for the specified tenant.",
+        "tags": ["ExecHideFromGAL"],
+        "parameters": [
+          {"name": "HideFromGal", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EditUser": {
+      "post": {
+        "summary": "Edit a user",
+        "description": "Edits the details of an existing user in the specified tenant.",
+        "tags": ["EditUser"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CopyFrom": {"type": "string"}
+                },
+                "required": ["CopyFrom"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListOAuthApps": {
+      "get": {
+        "summary": "List OAuth apps",
+        "description": "Retrieves a list of OAuth applications for the specified tenant.",
+        "tags": ["ListOAuthApps"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListDeviceDetails": {
+      "get": {
+        "summary": "List device details",
+        "description": "Retrieves the details of a specific device for the specified tenant.",
+        "tags": ["ListDeviceDetails"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "DeviceSerial", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "DeviceID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "DeviceName", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListLogs": {
+      "get": {
+        "summary": "List logs",
+        "description": "Retrieves a list of logs based on the specified filters.",
+        "tags": ["ListLogs"],
+        "parameters": [
+          {"name": "ListLogs", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Severity", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "User", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "DateFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Filter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListAllTenantDeviceCompliance": {
+      "get": {
+        "summary": "List all tenant device compliance",
+        "description": "Retrieves the compliance status of devices for all tenants.",
+        "tags": ["ListAllTenantDeviceCompliance"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListUsers": {
+      "get": {
+        "summary": "List users",
+        "description": "Retrieves a list of users for the specified tenant.",
+        "tags": ["ListUsers"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "IncludeLogonDetails", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "graphFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMessageTrace": {
+      "get": {
+        "summary": "List message trace",
+        "description": "Retrieves the trace information for messages based on the specified filters.",
+        "tags": ["ListMessageTrace"],
+        "parameters": [
+          {"name": "Tracedetail", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "sender", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "days", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "recipient", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListPhishPolicies": {
+      "get": {
+        "summary": "List phish policies",
+        "description": "Retrieves a list of phish policies for the specified tenant.",
+        "tags": ["ListPhishPolicies"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveSpamfilter": {
+      "get": {
+        "summary": "Remove a spam filter",
+        "description": "Removes a spam filter from the specified tenant.",
+        "tags": ["RemoveSpamfilter"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "name", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecNotificationConfig": {
+      "post": {
+        "summary": "Execute notification configuration",
+        "description": "Executes the configuration of notification settings for the specified tenant.",
+        "tags": ["ExecNotificationConfig"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Webhook": {"type": "string"},
+                  "Email": {"type": "string"},
+                  "logsToInclude": {"type": "string"},
+                  "Severity": {"type": "string"},
+                  "onePerTenant": {"type": "string"},
+                  "sendtoIntegration": {"type": "string"}
+                },
+                "required": ["Webhook", "Email", "logsToInclude", "Severity", "onePerTenant", "sendtoIntegration"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecSAMSetup": {
+      "post": {
+        "summary": "Setup SAM",
+        "description": "Executes the setup of Security Assertion Markup Language (SAML) for the specified tenant.",
+        "tags": ["ExecSAMSetup"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error_description": {"type": "string"},
+                  "setkeys": {"type": "string"},
+                  "applicationsecret": {"type": "string"},
+                  "error": {"type": "string"},
+                  "CheckSetupProcess": {"type": "string"},
+                  "count": {"type": "string"},
+                  "RefreshToken": {"type": "string"},
+                  "applicationid": {"type": "string"},
+                  "step": {"type": "string"},
+                  "tenantid": {"type": "string"},
+                  "partnersetup": {"type": "string"},
+                  "code": {"type": "string"},
+                  "CreateSAM": {"type": "string"}
+                },
+                "required": ["error_description", "setkeys", "applicationsecret", "error", "CheckSetupProcess", "count", "RefreshToken", "applicationid", "step", "tenantid", "partnersetup", "code", "CreateSAM"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "description": "ExecSAMSetup",
+          "summary": "ExecSAMSetup",
+          "tags": [
+            "GET"
+          ],
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "error_description",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "setkeys",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "applicationsecret",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "error",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "CheckSetupProcess",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "count",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "RefreshToken",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "applicationid",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "step",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "tenantid",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "partnersetup",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "code",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "CreateSAM",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {},
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "Successful operation"
+            }
+          }
+        }
+      }
+    },
+    "/ListUserMailboxDetails": {
+      "get": {
+        "summary": "List user mailbox details",
+        "description": "Retrieves the details of a user's mailbox for the specified tenant.",
+        "tags": ["ListUserMailboxDetails"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListExConnectorTemplates": {
+      "get": {
+        "summary": "List ExConnector templates",
+        "description": "Retrieves a list of ExConnector templates for the specified tenant.",
+        "tags": ["ListExConnectorTemplates"],
+        "parameters": [
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddDefenderDeployment": {
+      "post": {
+        "summary": "Add a Defender deployment",
+        "description": "Adds a Defender deployment configuration to the specified tenant.",
+        "tags": ["AddDefenderDeployment"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ASR": {"type": "string"},
+                  "Compliance": {"type": "string"},
+                  "EDR": {"type": "string"},
+                  "selectedTenants": {"type": "string"},
+                  "Policy": {"type": "string"}
+                },
+                "required": ["ASR", "Compliance", "EDR", "selectedTenants", "Policy"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListGDAPInvite": {
+      "get": {
+        "summary": "List GDAP invites",
+        "description": "Retrieves a list of GDAP (Granular Delegated Admin Privileges) invites for the specified relationship.",
+        "tags": ["ListGDAPInvite"],
+        "parameters": [
+          {"name": "RelationshipId", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddIntuneTemplate": {
+      "post": {
+        "summary": "Add an Intune template",
+        "description": "Adds a new Intune template to the specified tenant.",
+        "tags": ["AddIntuneTemplate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "TemplateType": {"type": "string"},
+                  "description": {"type": "string"},
+                  "TenantFilter": {"type": "string"},
+                  "displayname": {"type": "string"},
+                  "rawJSON": {"type": "string"},
+                  "id": {"type": "string"},
+                  "URLName": {"type": "string"}
+                },
+                "required": ["TemplateType", "description", "TenantFilter", "displayname", "rawJSON", "id", "URLName"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "description": "AddIntuneTemplate",
+          "summary": "AddIntuneTemplate",
+          "tags": [
+            "GET"
+          ],
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "TemplateType",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "description",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "TenantFilter",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "displayname",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "rawJSON",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "id",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "URLName",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {},
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "Successful operation"
+            }
+          }
+        }
+      }
+    },
+    "/AddAPDevice": {
+      "post": {
+        "summary": "Add an AP device",
+        "description": "Adds an Autopilot (AP) device to the specified tenant.",
+        "tags": ["AddAPDevice"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "TenantFilter": {"type": "string"},
+                  "autopilotData": {"type": "string"},
+                  "Groupname": {"type": "string"}
+                },
+                "required": ["TenantFilter", "autopilotData", "Groupname"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveTransportRuleTemplate": {
+      "get": {
+        "summary": "Remove a transport rule template",
+        "description": "Removes a transport rule template from the specified tenant.",
+        "tags": ["RemoveTransportRuleTemplate"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMailboxMobileDevices": {
+      "get": {
+        "summary": "List mailbox mobile devices",
+        "description": "Retrieves a list of mobile devices associated with the specified mailbox.",
+        "tags": ["ListMailboxMobileDevices"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Mailbox", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecExcludeTenant": {
+      "post": {
+        "summary": "Exclude a tenant",
+        "description": "Executes the exclusion of a tenant from the specified operations.",
+        "tags": ["ExecExcludeTenant"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ListAll": {"type": "string"},
+                  "TenantFilter": {"type": "string"},
+                  "AddExclusion": {"type": "string"},
+                  "value": {"type": "string"},
+                  "RemoveExclusion": {"type": "string"},
+                  "List": {"type": "string"}
+                },
+                "required": ["ListAll", "TenantFilter", "AddExclusion", "value", "RemoveExclusion", "List"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "description": "ExecExcludeTenant",
+          "summary": "ExecExcludeTenant",
+          "tags": [
+            "GET"
+          ],
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "ListAll",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "TenantFilter",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "AddExclusion",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "value",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "RemoveExclusion",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "List",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {},
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "Successful operation"
+            }
+          }
+        }
+      }
+    },
+    "/ExecSetSecurityAlert": {
+      "get": {
+        "summary": "Set security alert",
+        "description": "Executes the setting of a security alert for the specified tenant and parameters.",
+        "tags": ["ExecSetSecurityAlert"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "vendor", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "GUID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "provider", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Status", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecAddGDAPRole": {
+      "post": {
+        "summary": "Add a GDAP role",
+        "description": "Adds a GDAP (Granular Delegated Admin Privileges) role to the specified tenant.",
+        "tags": ["ExecAddGDAPRole"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "gdapRoles": {"type": "string"},
+                  "customSuffix": {"type": "string"}
+                },
+                "required": ["gdapRoles", "customSuffix"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListExchangeConnectors": {
+      "get": {
+        "summary": "List Exchange connectors",
+        "description": "Retrieves a list of Exchange connectors for the specified tenant.",
+        "tags": ["ListExchangeConnectors"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddTransportTemplate": {
+      "post": {
+        "summary": "Add a transport template",
+        "description": "Adds a transport template to the specified tenant.",
+        "tags": ["AddTransportTemplate"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "PowerShellCommand": {"type": "string"},
+                  "name": {"type": "string"}
+                },
+                "required": ["PowerShellCommand", "name"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecCreateTAP": {
+      "get": {
+        "summary": "Create a TAP (Tenant Attach Policy)",
+        "description": "Executes the creation of a TAP for the specified tenant.",
+        "tags": ["ExecCreateTAP"],
+        "parameters": [
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveCAPolicy": {
+      "get": {
+        "summary": "Remove a CA policy",
+        "description": "Removes a Conditional Access policy from the specified tenant.",
+        "tags": ["RemoveCAPolicy"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "GUID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveTransportRule": {
+      "get": {
+        "summary": "Remove a transport rule",
+        "description": "Removes a transport rule from the specified tenant.",
+        "tags": ["RemoveTransportRule"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "guid", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveAPDevice": {
+      "get": {
+        "summary": "Remove an AP device",
+        "description": "Removes an Autopilot (AP) device from the specified tenant.",
+        "tags": ["RemoveAPDevice"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddPolicy": {
+      "post": {
+        "summary": "Add a policy",
+        "description": "Adds a new policy to the specified tenant.",
+        "tags": ["AddPolicy"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "TemplateType": {"type": "string"},
+                  "Description": {"type": "string"},
+                  "Displayname": {"type": "string"},
+                  "replacemap": {"type": "string"},
+                  "RawJSON": {"type": "string"},
+                  "Assignto": {"type": "string"}
+                },
+                "required": ["TemplateType", "Description", "Displayname", "replacemap", "RawJSON", "Assignto"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddContact": {
+      "post": {
+        "summary": "Add a contact",
+        "description": "Adds a new contact to the specified tenant.",
+        "tags": ["AddContact"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tenantid": {"type": "string"}
+                },
+                "required": ["tenantid"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PublicScripts": {
+      "get": {
+        "summary": "Get public scripts",
+        "description": "Retrieves public scripts based on the specified GUID.",
+        "tags": ["PublicScripts"],
+        "parameters": [
+          {"name": "Guid", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveContact": {
+      "get": {
+        "summary": "Remove a contact",
+        "description": "Removes a contact from the specified tenant.",
+        "tags": ["RemoveContact"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "guid", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecEditTransportRule": {
+      "get": {
+        "summary": "Edit a transport rule",
+        "description": "Executes the editing of a transport rule based on the specified parameters.",
+        "tags": ["EditTransportRule"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "guid", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "state", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddSpamFilter": {
+      "post": {
+        "summary": "Add a spam filter",
+        "description": "Adds a new spam filter to the specified tenant.",
+        "tags": ["AddSpamFilter"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "PowerShellCommand": {"type": "string"}
+                },
+                "required": ["PowerShellCommand"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveIntuneTemplate": {
+      "get": {
+        "summary": "Remove an Intune template",
+        "description": "Removes an Intune template from the specified tenant.",
+        "tags": ["RemoveIntuneTemplate"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecGroupsDeliveryManagement": {
+      "get": {
+        "summary": "Manage groups delivery",
+        "description": "Executes the management of delivery settings for groups in the specified tenant.",
+        "tags": ["ExecGroupsDeliveryManagement"],
+        "parameters": [
+          {"name": "GroupType", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "OnlyAllowInternal", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListUserDevices": {
+      "get": {
+        "summary": "List user devices",
+        "description": "Retrieves a list of devices for the specified user and tenant.",
+        "tags": ["ListUserDevices"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EditTenant": {
+      "post": {
+        "summary": "Edit a tenant",
+        "description": "Edits the details of an existing tenant.",
+        "tags": ["EditTenant"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "displayName": {"type": "string"},
+                  "defaultDomainName": {"type": "string"},
+                  "tenantid": {"type": "string"},
+                  "customerId": {"type": "string"}
+                },
+                "required": ["displayName", "defaultDomainName", "tenantid", "customerId"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecAppApproval": {
+      "get": {
+        "summary": "Approve an app",
+        "description": "Executes the approval of an application for the specified tenant.",
+        "tags": ["ExecAppApproval"],
+        "parameters": [
+          {"name": "applicationid", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListInactiveAccounts": {
+      "get": {
+        "summary": "List inactive accounts",
+        "description": "Retrieves a list of inactive accounts for the specified tenant.",
+        "tags": ["ListInactiveAccounts"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddAlert": {
+      "post": {
+        "summary": "Add an alert",
+        "description": "Adds a new alert configuration for the specified tenant.",
+        "tags": ["AddAlert"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ApnCertExpiry": {"type": "string"},
+                  "NewRole": {"type": "string"},
+                  "MFAAlertUsers": {"type": "string"},
+                  "DefenderMalware": {"type": "string"},
+                  "NewGA": {"type": "string"},
+                  "QuotaUsed": {"type": "string"},
+                  "AppSecretExpiry": {"type": "string"},
+                  "OverusedLicenses": {"type": "string"},
+                  "VppTokenExpiry": {"type": "string"},
+                  "SecDefaultsUpsell": {"type": "string"},
+                  "NoCAConfig": {"type": "string"},
+                  "DefenderStatus": {"type": "string"},
+                  "AdminPassword": {"type": "string"},
+                  "MFAAdmins": {"type": "string"},
+                  "DepTokenExpiry": {"type": "string"},
+                  "SharePointQuota": {"type": "string"},
+                  "ExpiringLicenses": {"type": "string"},
+                  "UnusedLicenses": {"type": "string"}
+                },
+                "required": ["ApnCertExpiry", "NewRole", "MFAAlertUsers", "DefenderMalware", "NewGA", "QuotaUsed", "AppSecretExpiry", "OverusedLicenses", "VppTokenExpiry", "SecDefaultsUpsell", "NoCAConfig", "DefenderStatus", "AdminPassword", "MFAAdmins", "DepTokenExpiry", "SharePointQuota", "ExpiringLicenses", "UnusedLicenses"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMailboxes": {
+      "get": {
+        "summary": "List mailboxes",
+        "description": "Retrieves a list of mailboxes for the specified tenant.",
+        "tags": ["ListMailboxes"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMFAUsers": {
+      "get": {
+        "summary": "List MFA users",
+        "description": "Retrieves a list of users with MFA (Multi-Factor Authentication) enabled for the specified tenant.",
+        "tags": ["ListMFAUsers"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveGroupTemplate": {
+      "get": {
+        "summary": "Remove a group template",
+        "description": "Removes a group template from the specified tenant.",
+        "tags": ["RemoveGroupTemplate"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecRunBackup": {
+      "get": {
+        "summary": "Run a backup",
+        "description": "Executes a backup operation for the specified tenant.",
+        "tags": ["ExecRunBackup"],
+        "parameters": [
+          {"name": "Selected", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListTransportRules": {
+      "get": {
+        "summary": "List transport rules",
+        "description": "Retrieves a list of transport rules for the specified tenant.",
+        "tags": ["ListTransportRules"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecMaintenanceScripts": {
+      "get": {
+        "summary": "Execute maintenance scripts",
+        "description": "Executes specified maintenance scripts for the tenant.",
+        "tags": ["ExecMaintenanceScripts"],
+        "parameters": [
+          {"name": "MakeLink", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ScriptFile", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetCippAlerts": {
+      "get": {
+        "summary": "Get CIPP alerts",
+        "description": "Retrieves CIPP alerts based on the specified local version.",
+        "tags": ["GetCippAlerts"],
+        "parameters": [
+          {"name": "localversion", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecGDAPMigration": {
+      "post": {
+        "summary": "Migrate to GDAP",
+        "description": "Executes the migration to GDAP (Granular Delegated Admin Privileges) for the specified tenant.",
+        "tags": ["ExecGDAPMigration"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "selectedTenants": {"type": "string"},
+                  "gdapRoles": {"type": "string"}
+                },
+                "required": ["selectedTenants", "gdapRoles"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListGroups": {
+      "get": {
+        "summary": "List groups",
+        "description": "Retrieves a list of groups for the specified tenant.",
+        "tags": ["ListGroups"],
+        "parameters": [
+          {"name": "GroupID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "owners", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "members", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListDomains": {
+      "get": {
+        "summary": "List domains",
+        "description": "Retrieves a list of domains for the specified tenant.",
+        "tags": ["ListDomains"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListExternalTenantInfo": {
+      "get": {
+        "summary": "List external tenant info",
+        "description": "Retrieves information about an external tenant based on the specified tenant ID.",
+        "tags": ["ListExternalTenantInfo"],
+        "parameters": [
+          {"name": "tenant", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListAPDevices": {
+      "get": {
+        "summary": "List AP devices",
+        "description": "Retrieves a list of Autopilot (AP) devices for the specified tenant.",
+        "tags": ["ListAPDevices"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "UserID", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddAutopilotConfig": {
+      "post": {
+        "summary": "Add an Autopilot config",
+        "description": "Adds a new Autopilot configuration to the specified tenant.",
+        "tags": ["AddAutopilotConfig"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Displayname": {"type": "string"},
+                  "Description": {"type": "string"},
+                  "Assignto": {"type": "string"}
+                },
+                "required": ["Displayname", "Description", "Assignto"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddCAPolicy": {
+      "post": {
+        "summary": "Add a CA policy",
+        "description": "Adds a new Conditional Access policy to the specified tenant.",
+        "tags": ["AddCAPolicy"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "RawJSON": {"type": "string"}
+                },
+                "required": ["RawJSON"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMailboxStatistics": {
+      "get": {
+        "summary": "List mailbox statistics",
+        "description": "Retrieves statistics for mailboxes in the specified tenant.",
+        "tags": ["ListMailboxStatistics"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecAssignApp": {
+      "get": {
+        "summary": "Assign an app",
+        "description": "Executes the assignment of an application to the specified tenant.",
+        "tags": ["ExecAssignApp"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "ID", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "AssignTo", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecExtensionTest": {
+      "get": {
+        "summary": "Test an extension",
+        "description": "Executes a test of the specified extension for the tenant.",
+        "tags": ["ExecExtensionTest"],
+        "parameters": [
+          {"name": "extensionName", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecSetMailboxQuota": {
+      "post": {
+        "summary": "Set mailbox quota",
+        "description": "Executes the setting of mailbox quota for the specified user in the tenant.",
+        "tags": ["ExecSetMailboxQuota"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input": {"type": "string"},
+                  "ProhibitSendReceiveQuota": {"type": "string"},
+                  "ProhibitSendQuota": {"type": "string"},
+                  "tenantfilter": {"type": "string"},
+                  "IssueWarningQuota": {"type": "string"},
+                  "user": {"type": "string"}
+                },
+                "required": ["input", "ProhibitSendReceiveQuota", "ProhibitSendQuota", "tenantfilter", "IssueWarningQuota", "user"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListNamedLocations": {
+      "get": {
+        "summary": "List named locations",
+        "description": "Retrieves a list of named locations for the specified tenant.",
+        "tags": ["ListNamedLocations"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListMFAUsersAllTenants": {
+      "get": {
+        "summary": "List MFA users across tenants",
+        "description": "Retrieves a list of users with MFA (Multi-Factor Authentication) enabled across all tenants.",
+        "tags": ["ListMFAUsersAllTenants"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveQueuedAlert": {
+      "get": {
+        "summary": "Remove a queued alert",
+        "description": "Removes an alert from the queued alerts for the specified tenant.",
+        "tags": ["RemoveQueuedAlert"],
+        "parameters": [
+          {"name": "id", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ExecAccessChecks": {
+      "post": {
+        "summary": "Execute access checks",
+        "description": "Executes access checks for the specified tenants and parameters.",
+        "tags": ["ExecAccessChecks"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Tenants": {"type": "string"},
+                  "tenantid": {"type": "string"},
+                  "Permissions": {"type": "string"}
+                },
+                "required": ["Tenants", "tenantid", "Permissions"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "description": "ExecAccessChecks",
+          "summary": "ExecAccessChecks",
+          "tags": [
+            "GET"
+          ],
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "Tenants",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "tenantid",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "name": "Permissions",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {},
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "Successful operation"
+            }
+          }
+        }
+      }
+    },
+    "/ListSharedMailboxAccountEnabled": {
+      "get": {
+        "summary": "List shared mailbox account enabled status",
+        "description": "Retrieves the enabled status of shared mailbox accounts for the specified tenant.",
+        "tags": ["ListSharedMailboxAccountEnabled"],
+        "parameters": [
+          {"name": "TenantFilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListSpamfilter": {
+      "get": {
+        "summary": "List spam filters",
+        "description": "Retrieves a list of spam filters for the specified tenant.",
+        "tags": ["ListSpamfilter"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ListQuarantinePolicy": {
+      "get": {
+        "summary": "List quarantine policies",
+        "description": "Retrieves a list of quarantine policies for the specified tenant.",
+        "tags": ["ListQuarantinePolicy"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Type", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/AddQuarantinePolicy": {
+      "post": {
+        "summary": "Add a quarantine policy",
+        "description": "Adds a new quarantine policy for the specified tenant.",
+        "tags": ["AddQuarantinePolicy"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tenantfilter": {"type": "string"},
+                  "Name": {"type": "string"},
+                  "BlockSender": {"type": "boolean"},
+                  "Delete": {"type": "boolean"},
+                  "Preview": {"type": "boolean"},
+                  "ReleaseActionPreference": {"type": "string"},
+                  "AllowSender": {"type": "boolean"},
+                  "QuarantineNotification": {"type": "boolean"},
+                  "IncludeMessagesFromBlockedSenderAddress": {"type": "boolean"}
+                },
+                "required": ["tenantfilter", "Name", "BlockSender", "Delete", "Preview", "ReleaseActionPreference", "AllowSender", "QuarantineNotification", "IncludeMessagesFromBlockedSenderAddress"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/EditQuarantinePolicy": {
+      "post": {
+        "summary": "Edit a quarantine policy",
+        "description": "Edits an existing quarantine policy for the specified tenant.",
+        "tags": ["EditQuarantinePolicy"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tenantfilter": {"type": "string"},
+                  "Type": {"type": "string"},
+                  "Identity": {"type": "string"},
+                  "EndUserSpamNotificationFrequency": {"type": "string"},
+                  "EndUserSpamNotificationCustomFromAddress": {"type": "string"},
+                  "OrganizationBrandingEnabled": {"type": "boolean"},
+                  "BlockSender": {"type": "boolean"},
+                  "Delete": {"type": "boolean"},
+                  "Preview": {"type": "boolean"},
+                  "ReleaseActionPreference": {"type": "string"},
+                  "AllowSender": {"type": "boolean"},
+                  "QuarantineNotification": {"type": "boolean"},
+                  "IncludeMessagesFromBlockedSenderAddress": {"type": "boolean"}
+                },
+                "required": ["tenantfilter", "Type", "Identity", "EndUserSpamNotificationFrequency", "EndUserSpamNotificationCustomFromAddress", "OrganizationBrandingEnabled", "BlockSender", "Delete", "Preview", "ReleaseActionPreference", "AllowSender", "QuarantineNotification", "IncludeMessagesFromBlockedSenderAddress"]
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {"type": "object"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveExConnector": {
+      "get": {
+        "summary": "Remove an ExConnector",
+        "description": "Removes an ExConnector from the specified tenant.",
+        "tags": ["RemoveExConnector"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "guid", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Type", "in": "query", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveQuarantinePolicy": {
+      "get": {
+        "summary": "Remove a quarantine policy",
+        "description": "Removes a quarantine policy from the specified tenant.",
+        "tags": ["RemoveQuarantinePolicy"],
+        "parameters": [
+          {"name": "tenantfilter", "in": "query", "required": true, "schema": {"type": "string"}},
+          {"name": "Identity", "in": "body", "required": true, "schema": {"type": "string"}},
+          {"name": "Name", "in": "body", "required": false, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {"type": "object"}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {},
+    "schemas": {}
+  }
+}
