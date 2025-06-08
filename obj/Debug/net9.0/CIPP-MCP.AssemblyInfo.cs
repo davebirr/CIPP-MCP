@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CIPP-MCP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1d9d9b292c9814132077445c46f6590b379862b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8bdc8733db7534964fd6c5d000564ebe94a1836")]
 [assembly: System.Reflection.AssemblyProductAttribute("CIPP-MCP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CIPP-MCP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
