@@ -6,4 +6,5 @@ public class Monkey
     public required string Species { get; set; }
     public int Age { get; set; }
     public string InterestingFact { get; set; }
+    public int Bananas { get; set; }
 }

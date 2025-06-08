@@ -2277,3 +2277,109 @@ ModelContextProtocol.McpException: Unknown monkey action: 'test'
 2025-06-07 21:08:56.675 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) shut down.
 2025-06-07 21:08:56.675 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) shut down.
 2025-06-07 21:08:56.718 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) shut down.
+2025-06-07 23:50:09.194 -04:00 [DBG] Connection id "0HND6305M60P4" accepted.
+2025-06-07 23:50:09.195 -04:00 [DBG] Connection id "0HND6305M60P4" started.
+2025-06-07 23:50:09.196 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:3001/mcp - application/json 58
+2025-06-07 23:50:09.196 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-07 23:50:09.196 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.196 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-07 23:50:09.196 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.197 -04:00 [DBG] Connection id "0HND6305M60P4", Request id "0HND6305M60P4:00000001": started reading request body.
+2025-06-07 23:50:09.197 -04:00 [DBG] Connection id "0HND6305M60P4", Request id "0HND6305M60P4:00000001": done reading request body.
+2025-06-07 23:50:09.198 -04:00 [DBG] Server (CIPP-MCP 1.0.0.0) read JsonRpcRequest message from channel.
+2025-06-07 23:50:09.198 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'tools/list' request handler called.
+2025-06-07 23:50:09.199 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'tools/list' request handler completed.
+2025-06-07 23:50:09.199 -04:00 [VRB] Server (CIPP-MCP 1.0.0.0) sending message. Message: '{"result":{"tools":[{"name":"monkey","description":"Returns a random monkey fact, all monkeys, or a monkey by name.","inputSchema":{"type":"object","properties":{"action":{"type":"string","description":"Action to perform: \u0027fact\u0027, \u0027list\u0027, or \u0027get\u0027"},"name":{"type":"string","description":"(Optional) Name of the monkey for \u0027get\u0027 action"}},"required":["action"]}}]},"id":1,"jsonrpc":"2.0"}'.
+2025-06-07 23:50:09.199 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.199 -04:00 [DBG] Connection id "0HND6305M60P4" completed keep alive response.
+2025-06-07 23:50:09.199 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:3001/mcp - 200 null text/event-stream 3.7469ms
+2025-06-07 23:50:09.265 -04:00 [DBG] Connection id "0HND6305M60P4" received FIN.
+2025-06-07 23:50:09.266 -04:00 [DBG] Connection id "0HND6305M60P4" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-07 23:50:09.266 -04:00 [DBG] Connection id "0HND6305M60P4" disconnecting.
+2025-06-07 23:50:09.266 -04:00 [DBG] Connection id "0HND6305M60P4" stopped.
+2025-06-07 23:50:09.327 -04:00 [DBG] Connection id "0HND6305M60P5" accepted.
+2025-06-07 23:50:09.327 -04:00 [DBG] Connection id "0HND6305M60P5" started.
+2025-06-07 23:50:09.328 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:3001/mcp - application/json 117
+2025-06-07 23:50:09.328 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-07 23:50:09.328 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.328 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-07 23:50:09.328 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.328 -04:00 [DBG] Connection id "0HND6305M60P5", Request id "0HND6305M60P5:00000001": started reading request body.
+2025-06-07 23:50:09.328 -04:00 [DBG] Connection id "0HND6305M60P5", Request id "0HND6305M60P5:00000001": done reading request body.
+2025-06-07 23:50:09.328 -04:00 [DBG] Server (CIPP-MCP 1.0.0.0) read JsonRpcRequest message from channel.
+2025-06-07 23:50:09.328 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'tools/call' request handler called.
+2025-06-07 23:50:09.330 -04:00 [WRN] Server (CIPP-MCP 1.0.0.0) method 'tools/call' request handler failed.
+ModelContextProtocol.McpException: Unknown monkey action: 'test'
+   at Program.<>c.<<<Main>$>b__0_8>d.MoveNext() in C:\Users\davidb\1Repositories\CIPP-Project\CIPP-MCP\Program.cs:line 212
+--- End of stack trace from previous location ---
+   at ModelContextProtocol.Server.McpServer.<>c__DisplayClass42_0`2.<<InvokeHandlerAsync>g__InvokeScopedAsync|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at ModelContextProtocol.Server.McpServer.<>c__DisplayClass42_0`2.<<InvokeHandlerAsync>g__InvokeScopedAsync|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at ModelContextProtocol.RequestHandlers.<>c__DisplayClass0_0`2.<<Set>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at ModelContextProtocol.McpSession.HandleRequest(JsonRpcRequest request, CancellationToken cancellationToken)
+   at ModelContextProtocol.McpSession.HandleMessageAsync(JsonRpcMessage message, CancellationToken cancellationToken)
+   at ModelContextProtocol.McpSession.<>c__DisplayClass23_1.<<ProcessMessagesAsync>g__ProcessMessageAsync|0>d.MoveNext()
+2025-06-07 23:50:09.330 -04:00 [VRB] Server (CIPP-MCP 1.0.0.0) sending message. Message: '{"error":{"code":-32602,"message":"Unknown monkey action: \u0027test\u0027"},"id":2,"jsonrpc":"2.0"}'.
+2025-06-07 23:50:09.330 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.331 -04:00 [DBG] Connection id "0HND6305M60P5" completed keep alive response.
+2025-06-07 23:50:09.331 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:3001/mcp - 200 null text/event-stream 2.9458ms
+2025-06-07 23:50:09.348 -04:00 [DBG] Connection id "0HND6305M60P5" received FIN.
+2025-06-07 23:50:09.348 -04:00 [DBG] Connection id "0HND6305M60P5" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-07 23:50:09.349 -04:00 [DBG] Connection id "0HND6305M60P5" disconnecting.
+2025-06-07 23:50:09.349 -04:00 [DBG] Connection id "0HND6305M60P5" stopped.
+2025-06-07 23:50:09.353 -04:00 [DBG] Connection id "0HND6305M60P6" accepted.
+2025-06-07 23:50:09.353 -04:00 [DBG] Connection id "0HND6305M60P6" started.
+2025-06-07 23:50:09.354 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:3001/mcp - application/json 103
+2025-06-07 23:50:09.354 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-07 23:50:09.354 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.354 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-07 23:50:09.354 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.355 -04:00 [DBG] Connection id "0HND6305M60P6", Request id "0HND6305M60P6:00000001": started reading request body.
+2025-06-07 23:50:09.355 -04:00 [DBG] Connection id "0HND6305M60P6", Request id "0HND6305M60P6:00000001": done reading request body.
+2025-06-07 23:50:09.355 -04:00 [DBG] Server (CIPP-MCP 1.0.0.0) read JsonRpcRequest message from channel.
+2025-06-07 23:50:09.355 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'tools/call' request handler called.
+2025-06-07 23:50:09.356 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'tools/call' request handler completed.
+2025-06-07 23:50:09.356 -04:00 [VRB] Server (CIPP-MCP 1.0.0.0) sending message. Message: '{"result":{"content":[{"type":"application/json","text":"[{\u0022Name\u0022:\u0022Banana\u0022,\u0022Species\u0022:\u0022Capuchin\u0022,\u0022Age\u0022:5,\u0022InterestingFact\u0022:\u0022Capuchins are known for their intelligence and ability to use tools.\u0022},{\u0022Name\u0022:\u0022Coco\u0022,\u0022Species\u0022:\u0022Marmoset\u0022,\u0022Age\u0022:3,\u0022InterestingFact\u0022:\u0022Marmosets are among the smallest monkeys and often give birth to twins.\u0022},{\u0022Name\u0022:\u0022George\u0022,\u0022Species\u0022:\u0022Curious George (Fictional)\u0022,\u0022Age\u0022:7,\u0022InterestingFact\u0022:\u0022Curious George is a beloved children\\u0027s book character known for his curiosity.\u0022},{\u0022Name\u0022:\u0022Jack\u0022,\u0022Species\u0022:\u0022Capuchin\u0022,\u0022Age\u0022:10,\u0022InterestingFact\u0022:\u0022Jack is the famous monkey sidekick from the Pirates of the Caribbean movies.\u0022},{\u0022Name\u0022:\u0022Albert\u0022,\u0022Species\u0022:\u0022Rhesus Macaque\u0022,\u0022Age\u0022:6,\u0022InterestingFact\u0022:\u0022Albert I was the first monkey launched into space in 1948.\u0022},{\u0022Name\u0022:\u0022Gordo\u0022,\u0022Species\u0022:\u0022Squirrel Monkey\u0022,\u0022Age\u0022:4,\u0022InterestingFact\u0022:\u0022Gordo survived a suborbital space flight in 1958, paving the way for human space travel.\u0022},{\u0022Name\u0022:\u0022Enos\u0022,\u0022Species\u0022:\u0022Chimpanzee\u0022,\u0022Age\u0022:5,\u0022InterestingFact\u0022:\u0022Enos was the first chimpanzee to orbit the Earth in 1961.\u0022},{\u0022Name\u0022:\u0022Kanzi\u0022,\u0022Species\u0022:\u0022Bonobo\u0022,\u0022Age\u0022:43,\u0022InterestingFact\u0022:\u0022Kanzi is famous for communicating with humans using lexigrams.\u0022},{\u0022Name\u0022:\u0022Bubbles\u0022,\u0022Species\u0022:\u0022Chimpanzee\u0022,\u0022Age\u0022:41,\u0022InterestingFact\u0022:\u0022Bubbles was Michael Jackson\\u0027s pet and often appeared in public with him.\u0022},{\u0022Name\u0022:\u0022Abu\u0022,\u0022Species\u0022:\u0022Capuchin\u0022,\u0022Age\u0022:8,\u0022InterestingFact\u0022:\u0022Abu is Aladdin\\u0027s loyal monkey companion in Disney\\u0027s Aladdin.\u0022},{\u0022Name\u0022:\u0022Spike\u0022,\u0022Species\u0022:\u0022Capuchin\u0022,\u0022Age\u0022:12,\u0022InterestingFact\u0022:\u0022Spike appeared in both \\u0027Ace Ventura: Pet Detective\\u0027 and the TV show \\u0027Friends\\u0027.\u0022},{\u0022Name\u0022:\u0022Crystal\u0022,\u0022Species\u0022:\u0022Capuchin\u0022,\u0022Age\u0022:30,\u0022InterestingFact\u0022:\u0022Crystal is a Hollywood animal actor, starring in \\u0027Night at the Museum\\u0027 and other films.\u0022},{\u0022Name\u0022:\u0022Koko\u0022,\u0022Species\u0022:\u0022Gorilla\u0022,\u0022Age\u0022:46,\u0022InterestingFact\u0022:\u0022Koko was famous for learning and using sign language to communicate.\u0022},{\u0022Name\u0022:\u0022Mr. Teeny\u0022,\u0022Species\u0022:\u0022Chimpanzee\u0022,\u0022Age\u0022:9,\u0022InterestingFact\u0022:\u0022Mr. Teeny is Krusty the Clown\\u2019s chain-smoking sidekick on \\u0027The Simpsons\\u0027.\u0022},{\u0022Name\u0022:\u0022Hanuman\u0022,\u0022Species\u0022:\u0022Langur\u0022,\u0022Age\u0022:15,\u0022InterestingFact\u0022:\u0022Named after the Hindu monkey god, Hanuman langurs are revered in India.\u0022},{\u0022Name\u0022:\u0022Tarsier Tom\u0022,\u0022Species\u0022:\u0022Tarsier\u0022,\u0022Age\u0022:2,\u0022InterestingFact\u0022:\u0022Tarsiers have the largest eyes relative to body size of any mammal.\u0022},{\u0022Name\u0022:\u0022Mandrill Max\u0022,\u0022Species\u0022:\u0022Mandrill\u0022,\u0022Age\u0022:13,\u0022InterestingFact\u0022:\u0022Mandrills have brightly colored faces and are the largest monkey species.\u0022},{\u0022Name\u0022:\u0022Snowball\u0022,\u0022Species\u0022:\u0022Japanese Macaque\u0022,\u0022Age\u0022:7,\u0022InterestingFact\u0022:\u0022Japanese macaques, or snow monkeys, are famous for bathing in hot springs.\u0022},{\u0022Name\u0022:\u0022Momo\u0022,\u0022Species\u0022:\u0022Spider Monkey\u0022,\u0022Age\u0022:6,\u0022InterestingFact\u0022:\u0022Spider monkeys have prehensile tails that act like a fifth limb.\u0022},{\u0022Name\u0022:\u0022Rafiki\u0022,\u0022Species\u0022:\u0022Mandrill (Fictional)\u0022,\u0022Age\u0022:20,\u0022InterestingFact\u0022:\u0022Rafiki is the wise shaman in Disney\\u0027s \\u0027The Lion King\\u0027.\u0022},{\u0022Name\u0022:\u0022King Louie\u0022,\u0022Species\u0022:\u0022Orangutan (Fictional)\u0022,\u0022Age\u0022:25,\u0022InterestingFact\u0022:\u0022King Louie is the jazz-loving orangutan king in \\u0027The Jungle Book\\u0027.\u0022},{\u0022Name\u0022:\u0022Clyde\u0022,\u0022Species\u0022:\u0022Orangutan\u0022,\u0022Age\u0022:14,\u0022InterestingFact\u0022:\u0022Clyde was Clint Eastwood\\u2019s sidekick in \\u0027Every Which Way But Loose\\u0027.\u0022}]"}],"isError":false},"id":2,"jsonrpc":"2.0"}'.
+2025-06-07 23:50:09.356 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.356 -04:00 [DBG] Connection id "0HND6305M60P6" completed keep alive response.
+2025-06-07 23:50:09.357 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:3001/mcp - 200 null text/event-stream 2.586ms
+2025-06-07 23:50:09.358 -04:00 [DBG] Connection id "0HND6305M60P6" received FIN.
+2025-06-07 23:50:09.358 -04:00 [DBG] Connection id "0HND6305M60P6" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-07 23:50:09.359 -04:00 [DBG] Connection id "0HND6305M60P6" disconnecting.
+2025-06-07 23:50:09.359 -04:00 [DBG] Connection id "0HND6305M60P6" stopped.
+2025-06-07 23:50:09.377 -04:00 [DBG] Connection id "0HND6305M60P7" accepted.
+2025-06-07 23:50:09.377 -04:00 [DBG] Connection id "0HND6305M60P7" started.
+2025-06-07 23:50:09.377 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:3001/mcp - application/json 115
+2025-06-07 23:50:09.377 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-07 23:50:09.377 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.377 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-07 23:50:09.377 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.377 -04:00 [DBG] Connection id "0HND6305M60P7", Request id "0HND6305M60P7:00000001": started reading request body.
+2025-06-07 23:50:09.377 -04:00 [DBG] Connection id "0HND6305M60P7", Request id "0HND6305M60P7:00000001": done reading request body.
+2025-06-07 23:50:09.378 -04:00 [DBG] Server (CIPP-MCP 1.0.0.0) read JsonRpcRequest message from channel.
+2025-06-07 23:50:09.378 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'tools/call' request handler called.
+2025-06-07 23:50:09.378 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'tools/call' request handler completed.
+2025-06-07 23:50:09.378 -04:00 [VRB] Server (CIPP-MCP 1.0.0.0) sending message. Message: '{"result":{"content":[{"type":"application/json","text":"{\u0022Name\u0022:\u0022Abu\u0022,\u0022Species\u0022:\u0022Capuchin\u0022,\u0022Age\u0022:8,\u0022InterestingFact\u0022:\u0022Abu is Aladdin\\u0027s loyal monkey companion in Disney\\u0027s Aladdin.\u0022}"}],"isError":false},"id":3,"jsonrpc":"2.0"}'.
+2025-06-07 23:50:09.378 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-07 23:50:09.378 -04:00 [DBG] Connection id "0HND6305M60P7" completed keep alive response.
+2025-06-07 23:50:09.379 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:3001/mcp - 200 null text/event-stream 1.5985ms
+2025-06-07 23:50:09.380 -04:00 [DBG] Connection id "0HND6305M60P7" received FIN.
+2025-06-07 23:50:09.380 -04:00 [DBG] Connection id "0HND6305M60P7" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-07 23:50:09.380 -04:00 [DBG] Connection id "0HND6305M60P7" disconnecting.
+2025-06-07 23:50:09.380 -04:00 [DBG] Connection id "0HND6305M60P7" stopped.
+2025-06-07 23:50:09.386 -04:00 [DBG] Connection id "0HND6305M60P8" accepted.
+2025-06-07 23:50:09.386 -04:00 [DBG] Connection id "0HND6305M60P8" started.
+2025-06-07 23:50:09.386 -04:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:3001/mcp - null 0
+2025-06-07 23:50:09.387 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-07 23:50:09.387 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-07 23:50:09.387 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-07 23:50:09.387 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-07 23:50:09.387 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-07 23:50:09.387 -04:00 [DBG] Connection id "0HND6305M60P8" completed keep alive response.
+2025-06-07 23:50:09.387 -04:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:3001/mcp - 200 0 null 0.3692ms
+2025-06-07 23:50:09.388 -04:00 [DBG] Connection id "0HND6305M60P8" received FIN.
+2025-06-07 23:50:09.388 -04:00 [DBG] Connection id "0HND6305M60P8" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-07 23:50:09.388 -04:00 [DBG] Connection id "0HND6305M60P8" disconnecting.
+2025-06-07 23:50:09.388 -04:00 [DBG] Connection id "0HND6305M60P8" stopped.

@@ -139,3 +139,4 @@ C:\Users\davidb\1Repositories\CIPP-Project\CIPP-MCP\obj\Debug\net9.0\refint\CIPP
 C:\Users\davidb\1Repositories\CIPP-Project\CIPP-MCP\obj\Debug\net9.0\CIPP-MCP.pdb
 C:\Users\davidb\1Repositories\CIPP-Project\CIPP-MCP\obj\Debug\net9.0\CIPP-MCP.genruntimeconfig.cache
 C:\Users\davidb\1Repositories\CIPP-Project\CIPP-MCP\obj\Debug\net9.0\ref\CIPP-MCP.dll
+C:\Users\davidb\1Repositories\CIPP-Project\CIPP-MCP\obj\Debug\net9.0\CIPP-MCP.sourcelink.json

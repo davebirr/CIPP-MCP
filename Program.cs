@@ -1,4 +1,5 @@
 using CippMcp.Tools;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -71,7 +72,7 @@ Console.WriteLine("[TRACE] Registering MCP endpoint...");
 app.MapMcp("/mcp");
 
 // Handle the /stateless endpoint if no other endpoints have been matched by the call to UseRouting above.
-HandleStatelessMcp(app);
+// HandleStatelessMcp(app);
 
 await app.RunAsync();
 
@@ -125,6 +126,28 @@ static void ConfigureOptions(ModelContextProtocol.Server.McpServerOptions option
     // Register dynamic tool handlers for echo, sampleLLM, and monkey
     options.Capabilities.Tools.ListToolsHandler = async (request, cancellationToken) =>
     {
+        // Use the MonkeyAction enum to generate the list of valid actions
+        var actionEnumValues = System.Enum.GetNames(typeof(CippMcp.Tools.MonkeyAction)).Select(a => a.ToLower()).ToArray();
+        var inputSchemaObj = new
+        {
+            type = "object",
+            properties = new
+            {
+                action = new
+                {
+                    type = "string",
+                    description = $"Action to perform. One of: {string.Join(", ", actionEnumValues)}",
+                    @enum = actionEnumValues
+                },
+                name = new
+                {
+                    type = "string",
+                    description = "(Optional) Name of the monkey for actions that require it"
+                }
+            },
+            required = new[] { "action" }
+        };
+        var inputSchemaJson = System.Text.Json.JsonSerializer.Serialize(inputSchemaObj);
         return new ListToolsResult()
         {
             Tools =
@@ -133,22 +156,7 @@ static void ConfigureOptions(ModelContextProtocol.Server.McpServerOptions option
                 {
                     Name = "monkey",
                     Description = "Returns a random monkey fact, all monkeys, or a monkey by name.",
-                    InputSchema = JsonSerializer.Deserialize<JsonElement>("""
-                        {
-                          "type": "object",
-                          "properties": {
-                            "action": {
-                              "type": "string",
-                              "description": "Action to perform: 'fact', 'list', or 'get'"
-                            },
-                            "name": {
-                              "type": "string",
-                              "description": "(Optional) Name of the monkey for 'get' action"
-                            }
-                          },
-                          "required": ["action"]
-                        }
-                    """, McpJsonUtilities.DefaultOptions),
+                    InputSchema = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(inputSchemaJson, McpJsonUtilities.DefaultOptions),
                 }
             ]
         };
@@ -163,90 +171,70 @@ static void ConfigureOptions(ModelContextProtocol.Server.McpServerOptions option
         {
             if (request.Params.Arguments is null || !request.Params.Arguments.TryGetValue("action", out var actionElement))
                 throw new McpException("Missing required argument 'action'", McpErrorCode.InvalidParams);
-            var action = actionElement.ToString()?.ToLowerInvariant();
-            var monkeys = typeof(CippMcp.Tools.MonkeyTools)
-                .GetField("monkeys", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)
-                ?.GetValue(null) as List<CippMcp.Tools.Monkey>;
-            if (monkeys == null)
-                throw new McpException("Monkey data unavailable", McpErrorCode.InternalError);
-            if (action == "fact")
-            {
-                var facts = new[]
-                {
-                    "Monkeys use tools in the wild!",
-                    "Some monkeys can count.",
-                    "Capuchin monkeys are known for their intelligence.",
-                    "Marmosets are among the smallest monkeys."
-                };
-                var random = new Random();
-                var fact = facts[random.Next(facts.Length)];
-                return new CallToolResponse()
-                {
-                    Content = [new Content() { Text = fact, Type = "text" }]
-                };
-            }
-            else if (action == "list")
-            {
-                var json = System.Text.Json.JsonSerializer.Serialize(monkeys, CippMcp.Tools.MonkeyContext.Default.ListMonkey);
-                return new CallToolResponse()
-                {
-                    Content = [new Content() { Text = json, Type = "application/json" }]
-                };
-            }
-            else if (action == "get")
-            {
-                if (!request.Params.Arguments.TryGetValue("name", out var nameElement))
-                    throw new McpException("Missing required argument 'name' for 'get' action", McpErrorCode.InvalidParams);
-                var name = nameElement.ToString();
-                var monkey = monkeys.FirstOrDefault(m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-                if (monkey == null)
-                    throw new McpException($"Monkey '{name}' not found", McpErrorCode.InvalidParams);
-                var json = System.Text.Json.JsonSerializer.Serialize(monkey, CippMcp.Tools.MonkeyContext.Default.Monkey);
-                return new CallToolResponse()
-                {
-                    Content = [new Content() { Text = json, Type = "application/json" }]
-                };
-            }
-            else
-            {
+            var action = actionElement.ToString();
+            if (string.IsNullOrWhiteSpace(action))
+                throw new McpException("Action cannot be empty", McpErrorCode.InvalidParams);
+
+            var tool = new CippMcp.Tools.MonkeyTools();
+            var toolType = tool.GetType();
+            var method = toolType.GetMethods()
+                .Where(m => m.IsPublic && !m.IsStatic)
+                .FirstOrDefault(m =>
+                    string.Equals(m.Name, action, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(m.Name, "Get" + action, StringComparison.OrdinalIgnoreCase)
+                );
+            if (method == null)
                 throw new McpException($"Unknown monkey action: '{action}'", McpErrorCode.InvalidParams);
+
+            var parameters = method.GetParameters();
+            var args = new object[parameters.Length];
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var param = parameters[i];
+                if (request.Params.Arguments.TryGetValue(param.Name, out var val))
+                {
+                    if (val is System.Text.Json.JsonElement je)
+                    {
+                        if (je.ValueKind == System.Text.Json.JsonValueKind.String)
+                            args[i] = je.GetString();
+                        else if (je.ValueKind == System.Text.Json.JsonValueKind.Number && param.ParameterType == typeof(int) && je.TryGetInt32(out var intVal))
+                            args[i] = intVal;
+                        else
+                            args[i] = je.ToString();
+                    }
+                    else
+                    {
+                        args[i] = val;
+                    }
+                }
+                else if (param.HasDefaultValue)
+                {
+                    args[i] = param.DefaultValue;
+                }
+                else
+                {
+                    throw new McpException($"Missing required argument '{param.Name}' for '{action}' action", McpErrorCode.InvalidParams);
+                }
             }
+
+            object? resultObj = method.Invoke(tool, args);
+            string? result;
+            if (resultObj is Task<string> taskStr)
+                result = await taskStr;
+            else if (resultObj is string str)
+                result = str;
+            else
+                result = resultObj?.ToString();
+
+            var contentType = (string.Equals(action, "getrandomfact", StringComparison.OrdinalIgnoreCase)) ? "text" : "application/json";
+            return new CallToolResponse()
+            {
+                Content = [new Content() { Text = result, Type = contentType }]
+            };
         }
         else
         {
             throw new McpException($"Unknown tool: '{request.Params.Name}'", McpErrorCode.InvalidParams);
         }
     };
-}
-
-static void HandleStatelessMcp(WebApplication app)
-{
-    var serviceCollection = new ServiceCollection();
-    serviceCollection.AddLogging();
-    serviceCollection.AddSingleton(app.Services.GetRequiredService<ILoggerFactory>());
-    serviceCollection.AddSingleton(app.Services.GetRequiredService<DiagnosticListener>());
-    serviceCollection.AddRoutingCore();
-
-    serviceCollection.AddMcpServer(options =>
-    {
-        // You can reuse your ConfigureOptions helper if needed
-        // ConfigureOptions(options);
-        // Or inline your options setup here
-        options.Capabilities = app.Services.GetRequiredService<McpServerOptions>().Capabilities;
-        options.ServerInstructions = "This is a stateless MCP endpoint.";
-    })
-    .WithHttpTransport(options => options.Stateless = true);
-
-    var appBuilder = new ApplicationBuilder(serviceCollection.BuildServiceProvider());
-    appBuilder.UseRouting();
-    appBuilder.UseEndpoints(innerEndpoints =>
-    {
-        innerEndpoints.MapMcp("/stateless");
-    });
-
-    // This will run the stateless pipeline when /stateless is hit
-    app.Map("/stateless/{**catchall}", subApp =>
-    {
-        subApp.Run(appBuilder.Build());
-    });
 }
