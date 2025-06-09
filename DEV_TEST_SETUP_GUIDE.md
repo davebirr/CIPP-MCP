@@ -41,8 +41,10 @@ Install the following tools using [winget](https://learn.microsoft.com/en-us/win
 
 - **Python 3**
   ```sh
-  winget install --id Python.Python.3 --source winget
+  winget install --exact Python.Python.3.13
   ```
+
+
 
 ---
 
@@ -81,11 +83,18 @@ Clone your forks into the same parent directory.
 
 ## 4. Python Dependencies
 
-Install FastMCP for local testing:
+Install UV - Python package and project manager
+Install FastMCP - Python based Framework for local testing of MCP
 
 ```sh
+pip install uv
 pip install fastmcp
 ```
+
+> **Note:** If you're on Windows ARM64 and building from source is problematic, try installing precompiled wheels:
+> ```sh
+> pip install --only-binary=:all: fastmcp
+> ```
 
 ---
 
@@ -96,4 +105,49 @@ pip install fastmcp
 
 ---
 
+## 6. Running CIPP-MCP as a Streamable HTTP MCP Endpoint
+
+CIPP-MCP runs as a Streamable HTTP MCP endpoint (remote server). This allows integration with clients that support HTTP-based MCP communication.
+
+However, some clients—such as Claude—only communicate via `stdio` (standard input/output) and do not support HTTP endpoints directly. To enable local development and testing with these clients, a FastMCP Proxy is provided in the `Proxy` folder of this project.
+
+### Using the FastMCP Proxy
+
+1. Open a terminal and navigate to the `Proxy` folder in this repository.
+2. Make sure you can start the proxy with the following command:
+   ```sh
+   python .\cipp.local_mcp.py
+   ```
+3. Press Ctrl-C to exit. Claude will invoke the proxy when it starts.
+
+### Integrating with Claude Desktop via FastMCP Proxy
+
+To use CIPP-MCP with Claude Desktop (or other stdio-based MCP clients), you need to configure Claude to launch the FastMCP Proxy as a custom MCP server.
+
+1. **Install Claude Desktop** if you haven't already.
+2. **Edit your `claude_desktop_config.json`** file to add a new MCP server entry that launches the FastMCP Proxy. You can get to the file via File -> Settings -> Developer -> Edit Config.
+
+Example configuration:
+
+```json
+{
+    "mcpServers": {
+        "CIPP-MCP Proxy": {
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "C:/path/to/your/CIPP-Project/CIPP-MCP/Proxy/cipp.local_mcp.py"
+            ]
+        }
+    }
+}
+```
+
+- Replace `C:/path/to/your/CIPP-Project/CIPP-MCP/Proxy` with the actual path to your Proxy folder.
+- Save the file and restart Claude Desktop.
+
+Claude will now use the FastMCP Proxy to communicate with the CIPP-MCP HTTP endpoint, allowing you to test and debug locally.
+
+---
 Happy contributing!

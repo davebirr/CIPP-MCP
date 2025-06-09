@@ -8,6 +8,7 @@ The goal of this project is to enable M365 Copilot to use a specialized agent th
 > - [Microsoft MCP Blog: Introducing Model Context Protocol (MCP) in Copilot Studio](https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/introducing-model-context-protocol-mcp-in-copilot-studio-simplified-integration-with-ai-apps-and-agents)
 > - [CIPP Feature Request #3975](https://github.com/KelvinTegelaar/CIPP/issues/3975)
 > - [MCP tool bindings for Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-mcp?pivots=programming-language-csharp)
+> - [Example converstation with CIPP-MCP test tool - Monkey](https://claude.ai/share/385e67b9-7e4c-48f3-9289-57a5773ec691)
 
 ## Current Architecture
 - **CIPP:** Node.js (JavaScript) user interface hosted as an Azure Static Web App.
