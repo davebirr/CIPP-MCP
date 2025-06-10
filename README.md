@@ -19,6 +19,8 @@ The goal of this project is to enable M365 Copilot to use a specialized agent th
 - **Language:** C# (.NET)
 - **Purpose:** Implement MCP streamable HTTP endpoints to facilitate communication between M365 Copilot and the CIPP project.
 
+![CIPP-MCP Architecture Diagram](Docs/Images/CIPP-MCP_diagram.png)
+
 ### Integration Approach
 1. **M365 Copilot (via MCP agent)** sends a request to the MCP streamable HTTP endpoint.
 2. **MCP Endpoint (CIPP-MCP)** receives the request, parses the MCP payload, and determines which PowerShell function(s) to call.

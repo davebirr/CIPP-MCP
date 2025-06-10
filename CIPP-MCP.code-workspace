@@ -23,6 +23,9 @@
 		},
 		{
 			"path": "Tests"
+		},
+		{
+			"path": "Docs"
 		}
 	],
 	"settings": {

@@ -1,0 +1,147 @@
+2025-06-09 07:05:01.607 -04:00 [DBG] Connection id "0HND6S5TNK9JO" accepted.
+2025-06-09 07:05:01.690 -04:00 [DBG] Connection id "0HND6S5TNK9JO" started.
+2025-06-09 07:05:01.903 -04:00 [DBG] Connection id "0HND6S5TNK9JP" accepted.
+2025-06-09 07:05:01.903 -04:00 [DBG] Connection id "0HND6S5TNK9JP" started.
+2025-06-09 07:05:01.934 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:3001/mcp - application/json 152
+2025-06-09 07:05:01.935 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-09 07:05:01.935 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.935 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-09 07:05:01.935 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.936 -04:00 [DBG] Connection id "0HND6S5TNK9JO", Request id "0HND6S5TNK9JO:00000001": started reading request body.
+2025-06-09 07:05:01.936 -04:00 [DBG] Connection id "0HND6S5TNK9JQ" received FIN.
+2025-06-09 07:05:01.936 -04:00 [DBG] Connection id "0HND6S5TNK9JQ" accepted.
+2025-06-09 07:05:01.936 -04:00 [DBG] Connection id "0HND6S5TNK9JR" accepted.
+2025-06-09 07:05:01.936 -04:00 [DBG] Connection id "0HND6S5TNK9JQ" started.
+2025-06-09 07:05:01.936 -04:00 [DBG] Connection id "0HND6S5TNK9JQ" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.936 -04:00 [DBG] Connection id "0HND6S5TNK9JQ" disconnecting.
+2025-06-09 07:05:01.936 -04:00 [DBG] Connection id "0HND6S5TNK9JQ" stopped.
+2025-06-09 07:05:01.936 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:3001/mcp - application/json 152
+2025-06-09 07:05:01.937 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-09 07:05:01.937 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.937 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-09 07:05:01.937 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.937 -04:00 [DBG] Connection id "0HND6S5TNK9JP", Request id "0HND6S5TNK9JP:00000001": started reading request body.
+2025-06-09 07:05:01.937 -04:00 [DBG] Connection id "0HND6S5TNK9JP", Request id "0HND6S5TNK9JP:00000001": done reading request body.
+2025-06-09 07:05:01.937 -04:00 [DBG] Connection id "0HND6S5TNK9JR" started.
+2025-06-09 07:05:01.937 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:3001/mcp - application/json 152
+2025-06-09 07:05:01.937 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-09 07:05:01.937 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.937 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-09 07:05:01.937 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.937 -04:00 [DBG] Connection id "0HND6S5TNK9JR", Request id "0HND6S5TNK9JR:00000001": started reading request body.
+2025-06-09 07:05:01.937 -04:00 [DBG] Connection id "0HND6S5TNK9JR", Request id "0HND6S5TNK9JR:00000001": done reading request body.
+2025-06-09 07:05:01.937 -04:00 [DBG] Server (CIPP-MCP 1.0.0.0) read JsonRpcRequest message from channel.
+2025-06-09 07:05:01.937 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'initialize' request handler called.
+2025-06-09 07:05:01.938 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) method 'initialize' request handler completed.
+2025-06-09 07:05:01.938 -04:00 [VRB] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) sending message. Message: '{"result":{"protocolVersion":"2025-03-26","capabilities":{"logging":{},"prompts":{},"resources":{},"tools":{}},"serverInfo":{"name":"CIPP-MCP","version":"1.0.0.0"},"instructions":"This is a test server with only stub functionality"},"id":0,"jsonrpc":"2.0"}'.
+2025-06-09 07:05:01.938 -04:00 [DBG] Server (CIPP-MCP 1.0.0.0) read JsonRpcRequest message from channel.
+2025-06-09 07:05:01.938 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'initialize' request handler called.
+2025-06-09 07:05:01.938 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) method 'initialize' request handler completed.
+2025-06-09 07:05:01.938 -04:00 [VRB] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) sending message. Message: '{"result":{"protocolVersion":"2025-03-26","capabilities":{"logging":{},"prompts":{},"resources":{},"tools":{}},"serverInfo":{"name":"CIPP-MCP","version":"1.0.0.0"},"instructions":"This is a test server with only stub functionality"},"id":0,"jsonrpc":"2.0"}'.
+2025-06-09 07:05:01.938 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.938 -04:00 [DBG] Connection id "0HND6S5TNK9JP" completed keep alive response.
+2025-06-09 07:05:01.938 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:3001/mcp - 200 null text/event-stream 1.4657ms
+2025-06-09 07:05:01.938 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.938 -04:00 [DBG] Connection id "0HND6S5TNK9JR" completed keep alive response.
+2025-06-09 07:05:01.938 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:3001/mcp - 200 null text/event-stream 0.7877ms
+2025-06-09 07:05:01.939 -04:00 [DBG] Connection id "0HND6S5TNK9JO", Request id "0HND6S5TNK9JO:00000001": done reading request body.
+2025-06-09 07:05:01.940 -04:00 [DBG] Server (CIPP-MCP 1.0.0.0) read JsonRpcRequest message from channel.
+2025-06-09 07:05:01.940 -04:00 [INF] Server (CIPP-MCP 1.0.0.0) method 'initialize' request handler called.
+2025-06-09 07:05:01.940 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) method 'initialize' request handler completed.
+2025-06-09 07:05:01.940 -04:00 [VRB] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) sending message. Message: '{"result":{"protocolVersion":"2025-03-26","capabilities":{"logging":{},"prompts":{},"resources":{},"tools":{}},"serverInfo":{"name":"CIPP-MCP","version":"1.0.0.0"},"instructions":"This is a test server with only stub functionality"},"id":0,"jsonrpc":"2.0"}'.
+2025-06-09 07:05:01.940 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: POST /mcp/'
+2025-06-09 07:05:01.940 -04:00 [DBG] Connection id "0HND6S5TNK9JO" completed keep alive response.
+2025-06-09 07:05:01.940 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:3001/mcp - 200 null text/event-stream 5.5003ms
+2025-06-09 07:05:01.941 -04:00 [DBG] Connection id "0HND6S5TNK9JP" received FIN.
+2025-06-09 07:05:01.941 -04:00 [DBG] Connection id "0HND6S5TNK9JR" received FIN.
+2025-06-09 07:05:01.941 -04:00 [DBG] Connection id "0HND6S5TNK9JP" disconnecting.
+2025-06-09 07:05:01.941 -04:00 [DBG] Connection id "0HND6S5TNK9JP" stopped.
+2025-06-09 07:05:01.941 -04:00 [DBG] Connection id "0HND6S5TNK9JR" disconnecting.
+2025-06-09 07:05:01.941 -04:00 [DBG] Connection id "0HND6S5TNK9JR" stopped.
+2025-06-09 07:05:01.941 -04:00 [DBG] Connection id "0HND6S5TNK9JP" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.941 -04:00 [DBG] Connection id "0HND6S5TNK9JR" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.946 -04:00 [DBG] Connection id "0HND6S5TNK9JO" received FIN.
+2025-06-09 07:05:01.946 -04:00 [DBG] Connection id "0HND6S5TNK9JO" disconnecting.
+2025-06-09 07:05:01.946 -04:00 [DBG] Connection id "0HND6S5TNK9JO" stopped.
+2025-06-09 07:05:01.946 -04:00 [DBG] Connection id "0HND6S5TNK9JO" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9JS" accepted.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9JS" started.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9JT" accepted.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9JT" started.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9JU" accepted.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9JV" accepted.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9K0" accepted.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9JU" started.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9JV" started.
+2025-06-09 07:05:01.950 -04:00 [DBG] Connection id "0HND6S5TNK9K0" started.
+2025-06-09 07:05:01.952 -04:00 [DBG] Connection id "0HND6S5TNK9JT" received FIN.
+2025-06-09 07:05:01.952 -04:00 [DBG] Connection id "0HND6S5TNK9JT" disconnecting.
+2025-06-09 07:05:01.952 -04:00 [DBG] Connection id "0HND6S5TNK9JT" stopped.
+2025-06-09 07:05:01.952 -04:00 [DBG] Connection id "0HND6S5TNK9JS" received FIN.
+2025-06-09 07:05:01.952 -04:00 [DBG] Connection id "0HND6S5TNK9JT" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.952 -04:00 [DBG] Connection id "0HND6S5TNK9JS" disconnecting.
+2025-06-09 07:05:01.952 -04:00 [DBG] Connection id "0HND6S5TNK9JS" stopped.
+2025-06-09 07:05:01.952 -04:00 [DBG] Connection id "0HND6S5TNK9JS" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9JV" received FIN.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9K0" received FIN.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9JV" disconnecting.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9JV" stopped.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9JU" received FIN.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9K0" disconnecting.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9K0" stopped.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9JU" disconnecting.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9JU" stopped.
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9K0" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9JV" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.954 -04:00 [DBG] Connection id "0HND6S5TNK9JU" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.955 -04:00 [DBG] Connection id "0HND6S5TNK9K1" accepted.
+2025-06-09 07:05:01.955 -04:00 [DBG] Connection id "0HND6S5TNK9K1" started.
+2025-06-09 07:05:01.956 -04:00 [DBG] Connection id "0HND6S5TNK9K2" accepted.
+2025-06-09 07:05:01.956 -04:00 [DBG] Connection id "0HND6S5TNK9K2" started.
+2025-06-09 07:05:01.956 -04:00 [DBG] Connection id "0HND6S5TNK9K3" accepted.
+2025-06-09 07:05:01.956 -04:00 [DBG] Connection id "0HND6S5TNK9K3" started.
+2025-06-09 07:05:01.958 -04:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:3001/mcp - application/json null
+2025-06-09 07:05:01.958 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-09 07:05:01.958 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.958 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-09 07:05:01.958 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.958 -04:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:3001/mcp - application/json null
+2025-06-09 07:05:01.958 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-09 07:05:01.958 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) message processing canceled.
+2025-06-09 07:05:01.958 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.958 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-09 07:05:01.958 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) shutting down.
+2025-06-09 07:05:01.958 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.958 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) shut down.
+2025-06-09 07:05:01.958 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.958 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) message processing canceled.
+2025-06-09 07:05:01.958 -04:00 [DBG] Connection id "0HND6S5TNK9K2" completed keep alive response.
+2025-06-09 07:05:01.958 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) shutting down.
+2025-06-09 07:05:01.958 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) shut down.
+2025-06-09 07:05:01.958 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.958 -04:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:3001/mcp - 200 0 null 0.585ms
+2025-06-09 07:05:01.958 -04:00 [DBG] Connection id "0HND6S5TNK9K1" completed keep alive response.
+2025-06-09 07:05:01.958 -04:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:3001/mcp - 200 0 null 0.2332ms
+2025-06-09 07:05:01.959 -04:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:3001/mcp - application/json null
+2025-06-09 07:05:01.959 -04:00 [DBG] 1 candidate(s) found for the request path '/mcp'
+2025-06-09 07:05:01.959 -04:00 [DBG] Request matched endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.959 -04:00 [VRB] The endpoint does not specify the IRequestSizeLimitMetadata.
+2025-06-09 07:05:01.959 -04:00 [INF] Executing endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.959 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) message processing canceled.
+2025-06-09 07:05:01.959 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) shutting down.
+2025-06-09 07:05:01.959 -04:00 [INF] Server (CIPP-MCP 1.0.0.0), Client (mcp 0.1.0) shut down.
+2025-06-09 07:05:01.959 -04:00 [INF] Executed endpoint 'MCP Streamable HTTP | HTTP: DELETE /mcp/'
+2025-06-09 07:05:01.960 -04:00 [DBG] Connection id "0HND6S5TNK9K3" completed keep alive response.
+2025-06-09 07:05:01.960 -04:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:3001/mcp - 200 0 null 0.6348ms
+2025-06-09 07:05:01.960 -04:00 [DBG] Connection id "0HND6S5TNK9K2" received FIN.
+2025-06-09 07:05:01.960 -04:00 [DBG] Connection id "0HND6S5TNK9K2" disconnecting.
+2025-06-09 07:05:01.960 -04:00 [DBG] Connection id "0HND6S5TNK9K2" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.960 -04:00 [DBG] Connection id "0HND6S5TNK9K1" received FIN.
+2025-06-09 07:05:01.960 -04:00 [DBG] Connection id "0HND6S5TNK9K1" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:01.960 -04:00 [DBG] Connection id "0HND6S5TNK9K1" disconnecting.
+2025-06-09 07:05:01.960 -04:00 [DBG] Connection id "0HND6S5TNK9K1" stopped.
+2025-06-09 07:05:01.962 -04:00 [DBG] Connection id "0HND6S5TNK9K2" stopped.
+2025-06-09 07:05:02.085 -04:00 [DBG] Connection id "0HND6S5TNK9K3" received FIN.
+2025-06-09 07:05:02.085 -04:00 [DBG] Connection id "0HND6S5TNK9K3" disconnecting.
+2025-06-09 07:05:02.085 -04:00 [DBG] Connection id "0HND6S5TNK9K3" sending FIN because: "The Socket transport's send loop completed gracefully."
+2025-06-09 07:05:02.087 -04:00 [DBG] Connection id "0HND6S5TNK9K3" stopped.
