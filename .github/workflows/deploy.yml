@@ -9,7 +9,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './src'
-  DOTNET_VERSION: '8.0.x'
+  DOTNET_VERSION: '9.0.x'
 
 jobs:
   build-and-test:
@@ -50,7 +50,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-test
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    environment: production
+    permissions:
+      id-token: write
+      contents: read
     
     steps:
     - name: Download artifact from build job
@@ -62,12 +64,15 @@ jobs:
     - name: Login to Azure
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_18B4D18B019A465DBDEA328087D754CF }}
+        tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B56B43CBD8834BFCA93BC129E26BF988 }}
+        subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4FF9469605B549E68FE46408BDE06024 }}
 
     - name: 'Deploy to Azure Function App'
       uses: Azure/functions-action@v1
       with:
-        app-name: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}
+        app-name: 'cipp-mcp-kmw7b5mja3zvs-func'
+        slot-name: 'Production'
         package: './output'
 
   security-scan:
