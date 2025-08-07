@@ -10,16 +10,14 @@ This directory contains the Azure Resource Manager (ARM) template for deploying 
 
 ## Quick Deploy
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYourUsername%2FCIPP-MCP%2Fmain%2Fdeployment%2FAzureDeploymentTemplate.json)
-
-> **Note**: Replace `YourUsername` in the URL above with your GitHub username after forking
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdavebirr%2FCIPP-MCP%2Fmain%2Fdeployment%2FAzureDeploymentTemplate.json)
 
 ## Manual Deployment
 
 ### 1. Fork the Repository
 
 1. Fork this repository to your GitHub account
-2. Note your repository URL (e.g., `https://github.com/YourUsername/CIPP-MCP`)
+2. Note your repository URL (e.g., `https://github.com/davebirr/CIPP-MCP`)
 
 ### 2. Deploy Resources
 
