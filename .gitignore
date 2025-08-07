@@ -1,0 +1,98 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options directory
+.vs/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Environment files - NEVER COMMIT THESE
+.env
+.env.local
+.env.production
+.env.staging
+.env.backup.*
+*.env
+
+# Local development files
+local.settings.json
+.vscode/launch.json
+.vscode/tasks.json
+
+# Sensitive configuration
+appsettings.local.json
+secrets.json
+
+# Azure credentials and functions
+.azure/
+bin/
+obj/
+appsettings.json
+appsettings.*.json
+
+# Key files
+*.pfx
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Temporary files
+tmp/
+temp/
+.tmp
+*.tmp
+*.temp
+
+# IDE files
+.vs/
+.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Test files (keep only essential ones)
+test-*.ps1
+debug-*.ps1
+get-*.ps1
+*.backup.*
+
+# Scripts directory (development only)
+scripts/
+Scripts/
+
+# Package files
+*.nupkg
+*.snupkg
+
+# User-specific files
+*.rsuser
+*.suo
+*.user

@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: cipp-mcp
+metadata:
+  template: cipp-mcp@0.0.1-beta
+
+services:
+  api:
+    project: ./src
+    language: csharp
+    host: function
+
+hooks:
+  postdeploy:
+    shell: pwsh
+    run: |
+      Write-Host "🔑 IMPORTANT: Configure Key Vault secrets for CIPP authentication" -ForegroundColor Yellow
+      Write-Host "Required secrets:" -ForegroundColor Gray  
+      Write-Host "  • CIPP-APPLICATION-ID" -ForegroundColor Gray
+      Write-Host "  • CIPP-APPLICATION-SECRET" -ForegroundColor Gray
+      Write-Host "  • CIPP-REFRESH-TOKEN" -ForegroundColor Gray
+      Write-Host ""
+      Write-Host "Health check: $($env:AZURE_FUNCTION_APP_URL)/api/health" -ForegroundColor Green
