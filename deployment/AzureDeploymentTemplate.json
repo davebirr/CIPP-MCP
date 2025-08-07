@@ -108,7 +108,7 @@
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
                 "reserved": true,
                 "siteConfig": {
-                    "linuxFxVersion": "DOTNET|9.0",
+                    "linuxFxVersion": "DOTNETCORE|9.0",
                     "appSettings": [
                         {
                             "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
