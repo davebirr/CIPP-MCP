@@ -47,6 +47,13 @@
             "metadata": {
                 "description": "Branch to deploy from"
             }
+        },
+        "enableSourceControl": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Enable automatic deployment from GitHub repository"
+            }
         }
     },
     "variables": {
@@ -192,6 +199,7 @@
             },
             "resources": [
                 {
+                    "condition": "[parameters('enableSourceControl')]",
                     "type": "sourcecontrols",
                     "apiVersion": "2021-02-01",
                     "name": "web",
@@ -201,7 +209,9 @@
                     "properties": {
                         "repoUrl": "[parameters('repositoryUrl')]",
                         "branch": "[parameters('repositoryBranch')]",
-                        "isManualIntegration": true
+                        "isManualIntegration": true,
+                        "deploymentRollbackEnabled": false,
+                        "isMercurial": false
                     }
                 }
             ]
@@ -230,7 +240,7 @@
         },
         "nextSteps": {
             "type": "string",
-            "value": "[concat('1. Grant the managed identity (', variables('managedIdentityName'), ') access to your existing Key Vault (', parameters('existingKeyVaultName'), '). 2. Add CIPP credentials to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN')]"
+            "value": "[concat('1. Grant the managed identity (', variables('managedIdentityName'), ') access to your existing Key Vault (', parameters('existingKeyVaultName'), '). 2. Add CIPP credentials to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN. 3. If source control failed, manually configure deployment in Azure Portal > Function App > Deployment Center.')]"
         }
     }
 }
