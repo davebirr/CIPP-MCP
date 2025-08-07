@@ -21,7 +21,7 @@ CIPP-MCP follows the same **fork-and-deploy pattern** as CIPP-API, ensuring cons
 - **Fork-and-Deploy Alignment**: Matches CIPP's established user deployment pattern
 
 1. **Fork this repository** to your GitHub account
-2. **Deploy to Azure** using the button above
+2. **Deploy to Azure** using the button above (defaults to this repository, update if you forked)
 3. **Configure authentication** by adding your CIPP credentials to Key Vault
 4. **Connect to Copilot Studio** or VS Code for AI-powered tenant management
 

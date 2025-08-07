@@ -6,7 +6,7 @@
             "type": "string",
             "defaultValue": "[concat('cipp-mcp-', uniqueString(resourceGroup().id))]",
             "metadata": {
-                "description": "Base name for all resources. Will be used to generate unique resource names."
+                "description": "Base name for MCP resources. Will be used to generate unique resource names."
             }
         },
         "location": {
@@ -28,9 +28,15 @@
                 "description": "Email address of the CIPP administrator"
             }
         },
+        "existingKeyVaultName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of your existing CIPP Key Vault (from your CIPP deployment)"
+            }
+        },
         "repositoryUrl": {
             "type": "string",
-            "defaultValue": "https://github.com/YourUsername/CIPP-MCP",
+            "defaultValue": "https://github.com/davebirr/CIPP-MCP",
             "metadata": {
                 "description": "URL of your forked CIPP-MCP repository"
             }
@@ -46,8 +52,7 @@
     "variables": {
         "functionAppName": "[concat(parameters('baseName'), '-func')]",
         "appServicePlanName": "[concat(parameters('baseName'), '-asp')]",
-        "storageAccountName": "[concat(replace(parameters('baseName'), '-', ''), 'stor')]",
-        "keyVaultName": "[concat(parameters('baseName'), '-kv')]",
+        "storageAccountName": "[concat(replace(take(parameters('baseName'), 15), '-', ''), 'stor')]",
         "applicationInsightsName": "[concat(parameters('baseName'), '-ai')]",
         "managedIdentityName": "[concat(parameters('baseName'), '-mi')]"
     },
@@ -71,40 +76,6 @@
                 "supportsHttpsTrafficOnly": true,
                 "allowBlobPublicAccess": false,
                 "minimumTlsVersion": "TLS1_2"
-            }
-        },
-        {
-            "type": "Microsoft.KeyVault/vaults",
-            "apiVersion": "2021-04-01-preview",
-            "name": "[variables('keyVaultName')]",
-            "location": "[parameters('location')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentityName'))]"
-            ],
-            "properties": {
-                "sku": {
-                    "family": "A",
-                    "name": "standard"
-                },
-                "tenantId": "[subscription().tenantId]",
-                "accessPolicies": [
-                    {
-                        "tenantId": "[subscription().tenantId]",
-                        "objectId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentityName'))).principalId]",
-                        "permissions": {
-                            "secrets": [
-                                "get",
-                                "list"
-                            ]
-                        }
-                    }
-                ],
-                "enabledForDeployment": false,
-                "enabledForTemplateDeployment": false,
-                "enabledForDiskEncryption": false,
-                "enableSoftDelete": true,
-                "softDeleteRetentionInDays": 7,
-                "enablePurgeProtection": true
             }
         },
         {
@@ -142,7 +113,6 @@
                 "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.Insights/components', variables('applicationInsightsName'))]",
-                "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]",
                 "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentityName'))]"
             ],
             "identity": {
@@ -187,11 +157,11 @@
                         },
                         {
                             "name": "KEY_VAULT_NAME",
-                            "value": "[variables('keyVaultName')]"
+                            "value": "[parameters('existingKeyVaultName')]"
                         },
                         {
                             "name": "KEY_VAULT_URL",
-                            "value": "[reference(resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))).vaultUri]"
+                            "value": "[concat('https://', parameters('existingKeyVaultName'), '.vault.azure.net/')]"
                         },
                         {
                             "name": "CIPP_API_BASE_URL",
@@ -246,17 +216,21 @@
             "type": "string",
             "value": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('functionAppName'))).defaultHostName)]"
         },
-        "keyVaultName": {
-            "type": "string",
-            "value": "[variables('keyVaultName')]"
-        },
         "managedIdentityName": {
             "type": "string",
             "value": "[variables('managedIdentityName')]"
         },
+        "managedIdentityClientId": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentityName'))).clientId]"
+        },
         "storageAccountName": {
             "type": "string",
             "value": "[variables('storageAccountName')]"
+        },
+        "nextSteps": {
+            "type": "string",
+            "value": "[concat('1. Grant the managed identity (', variables('managedIdentityName'), ') access to your existing Key Vault (', parameters('existingKeyVaultName'), '). 2. Add CIPP credentials to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN')]"
         }
     }
 }
