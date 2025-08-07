@@ -45,14 +45,7 @@
             "type": "string",
             "defaultValue": "main",
             "metadata": {
-                "description": "Branch to deploy from"
-            }
-        },
-        "enableSourceControl": {
-            "type": "bool",
-            "defaultValue": true,
-            "metadata": {
-                "description": "Enable automatic deployment from GitHub repository"
+                "description": "Branch to deploy from (used for reference only)"
             }
         }
     },
@@ -196,25 +189,7 @@
                         }
                     ]
                 }
-            },
-            "resources": [
-                {
-                    "condition": "[parameters('enableSourceControl')]",
-                    "type": "sourcecontrols",
-                    "apiVersion": "2021-02-01",
-                    "name": "web",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]"
-                    ],
-                    "properties": {
-                        "repoUrl": "[parameters('repositoryUrl')]",
-                        "branch": "[parameters('repositoryBranch')]",
-                        "isManualIntegration": true,
-                        "deploymentRollbackEnabled": false,
-                        "isMercurial": false
-                    }
-                }
-            ]
+            }
         }
     ],
     "outputs": {
@@ -240,7 +215,11 @@
         },
         "nextSteps": {
             "type": "string",
-            "value": "[concat('1. Grant the managed identity (', variables('managedIdentityName'), ') access to your existing Key Vault (', parameters('existingKeyVaultName'), '). 2. Add CIPP credentials to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN. 3. If source control failed, manually configure deployment in Azure Portal > Function App > Deployment Center.')]"
+            "value": "[concat('NEXT STEPS: 1. Grant managed identity (', variables('managedIdentityName'), ') access to Key Vault (', parameters('existingKeyVaultName'), ') with Get/List permissions. 2. Add CIPP secrets to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN. 3. Configure CI/CD: Go to Function App > Deployment Center > GitHub > Select your repository and branch.')]"
+        },
+        "deploymentInstructions": {
+            "type": "string",
+            "value": "To configure automatic deployment: 1. Navigate to your Function App in Azure Portal. 2. Go to Deployment Center. 3. Select GitHub as source. 4. Authenticate and select your forked repository. 5. Choose the main branch. 6. Azure will create a GitHub Actions workflow automatically."
         }
     }
 }

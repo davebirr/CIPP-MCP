@@ -8,8 +8,8 @@ This1. Click the "Deploy to Azure" button above
    - **CIPP API URL**: Your existing CIPP Static Web App URL
    - **CIPP User Email**: Your administrator email
    - **Existing Key Vault Name**: Name of your CIPP Key Vault (e.g., "cipp-kv-abc123")
-   - **Repository URL**: Repository to deploy from (defaults to this repo)
-   - **Repository Branch**: Branch to deploy (usually `main`)
+   - **Repository URL**: Repository to deploy from (for reference)
+   - **Repository Branch**: Branch to deploy (for reference)
 
 ### 3. Grant Key Vault Access
 
@@ -30,7 +30,24 @@ The MCP server will use the same CIPP authentication secrets. Ensure these exist
    - `CIPP-APPLICATION-SECRET`: Your CIPP application secret  
    - `CIPP-REFRESH-TOKEN`: Your CIPP refresh token
 
-If these don't exist yet, add them to your CIPP Key Vault. the Azure Resource Manager (ARM) template for adding CIPP-MCP to your existing CIPP deployment.
+If these don't exist yet, add them to your CIPP Key Vault.
+
+### 5. Configure Continuous Deployment
+
+After the ARM deployment completes, set up automatic deployment:
+
+1. Navigate to your new Function App in Azure Portal
+2. Go to **Deployment Center**
+3. Select **GitHub** as the source
+4. **Authenticate with GitHub** and authorize Azure
+5. Select your **repository** (either this repo or your fork)
+6. Choose the **main branch**
+7. Click **Save**
+
+Azure will automatically:
+- Create a GitHub Actions workflow in your repository
+- Build and deploy your code whenever you push changes
+- Show deployment history and logs the Azure Resource Manager (ARM) template for adding CIPP-MCP to your existing CIPP deployment.
 
 ## Prerequisites
 
@@ -107,8 +124,10 @@ The deployment automatically configures:
 
 - Managed identity for secure Key Vault access
 - Application settings for CIPP integration
-- Continuous deployment from your GitHub repository
+- Function App ready for code deployment
 - Application Insights for monitoring
+
+**Note**: CI/CD setup is done manually after deployment for better reliability.
 
 ## Security
 
@@ -119,11 +138,11 @@ The deployment automatically configures:
 
 ## Updating
 
-To update your deployment:
+After setting up CI/CD (see step 5 above):
 
 1. Push changes to your GitHub repository
-2. The Function App will automatically redeploy (if continuous deployment is enabled)
-3. Or manually sync in Azure Portal under "Deployment Center"
+2. GitHub Actions will automatically build and deploy
+3. Monitor deployment progress in Azure Portal > Function App > Deployment Center
 
 ## Troubleshooting
 
