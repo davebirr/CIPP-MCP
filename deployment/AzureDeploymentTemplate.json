@@ -50,9 +50,8 @@
         }
     },
     "variables": {
-        "functionAppName": "[concat(parameters('baseName'), '-func')]",
+        "webAppName": "[concat(parameters('baseName'), '-app')]",
         "appServicePlanName": "[concat(parameters('baseName'), '-asp')]",
-        "storageAccountName": "[concat(replace(take(parameters('baseName'), 15), '-', ''), 'stor')]",
         "applicationInsightsName": "[concat(parameters('baseName'), '-ai')]",
         "managedIdentityName": "[concat(parameters('baseName'), '-mi')]"
     },
@@ -62,21 +61,6 @@
             "apiVersion": "2018-11-30",
             "name": "[variables('managedIdentityName')]",
             "location": "[parameters('location')]"
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2021-02-01",
-            "name": "[variables('storageAccountName')]",
-            "location": "[parameters('location')]",
-            "sku": {
-                "name": "Standard_LRS"
-            },
-            "kind": "StorageV2",
-            "properties": {
-                "supportsHttpsTrafficOnly": true,
-                "allowBlobPublicAccess": false,
-                "minimumTlsVersion": "TLS1_2"
-            }
         },
         {
             "type": "Microsoft.Insights/components",
@@ -95,8 +79,8 @@
             "name": "[variables('appServicePlanName')]",
             "location": "[parameters('location')]",
             "sku": {
-                "name": "Y1",
-                "tier": "Dynamic"
+                "name": "B1",
+                "tier": "Basic"
             },
             "properties": {
                 "name": "[variables('appServicePlanName')]",
@@ -106,12 +90,11 @@
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2021-02-01",
-            "name": "[variables('functionAppName')]",
+            "name": "[variables('webAppName')]",
             "location": "[parameters('location')]",
-            "kind": "functionapp,linux",
+            "kind": "app,linux",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
                 "[resourceId('Microsoft.Insights/components', variables('applicationInsightsName'))]",
                 "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentityName'))]"
             ],
@@ -125,31 +108,11 @@
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
                 "reserved": true,
                 "siteConfig": {
-                    "linuxFxVersion": "DOTNET-ISOLATED|9.0",
+                    "linuxFxVersion": "DOTNET|9.0",
                     "appSettings": [
-                        {
-                            "name": "AzureWebJobsStorage",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2021-02-01').keys[0].value)]"
-                        },
-                        {
-                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2021-02-01').keys[0].value)]"
-                        },
-                        {
-                            "name": "WEBSITE_CONTENTSHARE",
-                            "value": "[toLower(variables('functionAppName'))]"
-                        },
-                        {
-                            "name": "FUNCTIONS_EXTENSION_VERSION",
-                            "value": "~4"
-                        },
                         {
                             "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
                             "value": "[reference(resourceId('Microsoft.Insights/components', variables('applicationInsightsName'))).ConnectionString]"
-                        },
-                        {
-                            "name": "FUNCTIONS_WORKER_RUNTIME",
-                            "value": "dotnet-isolated"
                         },
                         {
                             "name": "AZURE_CLIENT_ID",
@@ -193,13 +156,13 @@
         }
     ],
     "outputs": {
-        "functionAppName": {
+        "webAppName": {
             "type": "string",
-            "value": "[variables('functionAppName')]"
+            "value": "[variables('webAppName')]"
         },
-        "functionAppUrl": {
+        "webAppUrl": {
             "type": "string",
-            "value": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('functionAppName'))).defaultHostName)]"
+            "value": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('webAppName'))).defaultHostName)]"
         },
         "managedIdentityName": {
             "type": "string",
@@ -209,17 +172,13 @@
             "type": "string",
             "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentityName'))).clientId]"
         },
-        "storageAccountName": {
-            "type": "string",
-            "value": "[variables('storageAccountName')]"
-        },
         "nextSteps": {
             "type": "string",
-            "value": "[concat('NEXT STEPS: 1. Grant managed identity (', variables('managedIdentityName'), ') access to Key Vault (', parameters('existingKeyVaultName'), ') with Get/List permissions. 2. Add CIPP secrets to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN. 3. Configure CI/CD: Go to Function App > Deployment Center > GitHub > Select your repository and branch.')]"
+            "value": "[concat('NEXT STEPS: 1. Grant managed identity (', variables('managedIdentityName'), ') access to Key Vault (', parameters('existingKeyVaultName'), ') with Get/List permissions. 2. Add CIPP secrets to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN. 3. Configure CI/CD: Go to Web App > Deployment Center > GitHub > Select your repository and branch.')]"
         },
         "deploymentInstructions": {
             "type": "string",
-            "value": "To configure automatic deployment: 1. Navigate to your Function App in Azure Portal. 2. Go to Deployment Center. 3. Select GitHub as source. 4. Authenticate and select your forked repository. 5. Choose the main branch. 6. Azure will create a GitHub Actions workflow automatically."
+            "value": "To configure automatic deployment: 1. Navigate to your Web App in Azure Portal. 2. Go to Deployment Center. 3. Select GitHub as source. 4. Authenticate and select your forked repository. 5. Choose the main branch. 6. Azure will create a GitHub Actions workflow automatically."
         }
     }
 }
