@@ -1,8 +1,6 @@
 # CIPP-MCP: Model Context Protocol Server for CIPP
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FYourUsername%2FCIPP-MCP%2Fmain%2Fdeployment%2FAzureDeploymentTemplate.json)
-
-> **Note**: Replace `YourUsername` in the URL above with your GitHub username after forking this repository.
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdavebirr%2FCIPP-MCP%2Fmain%2Fdeployment%2FAzureDeploymentTemplate.json)
 
 CIPP-MCP is a Model Context Protocol server that enables AI assistants to securely interact with CIPP (CyberDrain Improved Partner Portal) functionality. This allows Copilot Studio, Claude Desktop, and other AI tools to perform Microsoft 365 tenant management operations through natural language commands.
 
@@ -65,7 +63,7 @@ CIPP-MCP integrates seamlessly with the existing CIPP ecosystem by acting as an 
 
 1. **Clone and setup**:
    ```bash
-   git clone https://github.com/YourUsername/CIPP-MCP.git
+   git clone https://github.com/davebirr/CIPP-MCP.git
    cd CIPP-MCP/src
    dotnet restore
    ```
