@@ -21,13 +21,13 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0'
+          dotnet-version: '9.x'
 
       - name: Build with dotnet
-        run: dotnet build src/CIPP-MCP.csproj --configuration Release
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish src/CIPP-MCP.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -51,9 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7B5196ACE65B47AEA723E6E9FD2DEB8D }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C058FF2D6810490E8B5ECC1361EF1096 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8824ED279758421FA36B46BE4EF0ED9D }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6C3CB602497D4A93B909F41372D7F2FF }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EC918267906943D3A395C1A532CA3E57 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_65A51BE94B23468FA5BD03D95D11B093 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
