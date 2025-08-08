@@ -1,12 +1,14 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
+    "metadata": {
+        "description": "CIPP MCP Server deployment with OAuth2 user-delegated authentication for Copilot Studio integration"
+    },
     "parameters": {
         "baseName": {
             "type": "string",
-            "defaultValue": "[concat('cipp-mcp-', uniqueString(resourceGroup().id))]",
             "metadata": {
-                "description": "Base name for MCP resources. Will be used to generate unique resource names."
+                "description": "Base name for all resources. Resources will be named {baseName}-{type}."
             }
         },
         "location": {
@@ -19,52 +21,27 @@
         "cippApiUrl": {
             "type": "string",
             "metadata": {
-                "description": "URL of your existing CIPP Static Web App (e.g., https://your-cipp.azurestaticapps.net)"
-            }
-        },
-        "cippUserEmail": {
-            "type": "string",
-            "metadata": {
-                "description": "Email address of the CIPP administrator (used for Key Vault auth mode only)"
+                "description": "CIPP API URL (e.g., https://yourdomain.com or https://app.cipp.org)"
             }
         },
         "existingKeyVaultName": {
             "type": "string",
             "metadata": {
-                "description": "Name of your existing CIPP Key Vault (from your CIPP deployment)"
-            }
-        },
-        "authMode": {
-            "type": "string",
-            "defaultValue": "oauth2",
-            "allowedValues": [
-                "keyvault",
-                "oauth2",
-                "browser"
-            ],
-            "metadata": {
-                "description": "Authentication mode: 'oauth2' for user-delegated (Copilot Studio), 'keyvault' for service-to-service, 'browser' for development"
-            }
-        },
-        "tenantId": {
-            "type": "string",
-            "defaultValue": "[subscription().tenantId]",
-            "metadata": {
-                "description": "Azure AD Tenant ID for OAuth2 authentication"
+                "description": "Name of existing Azure Key Vault for storing secrets"
             }
         },
         "repositoryUrl": {
             "type": "string",
-            "defaultValue": "https://github.com/davebirr/CIPP-MCP",
+            "defaultValue": "https://github.com/KelvinTegelaar/CIPP-MCP",
             "metadata": {
-                "description": "URL of your forked CIPP-MCP repository"
+                "description": "GitHub repository URL for source code deployment"
             }
         },
         "repositoryBranch": {
             "type": "string",
             "defaultValue": "main",
             "metadata": {
-                "description": "Branch to deploy from (used for reference only)"
+                "description": "GitHub repository branch for deployment"
             }
         },
         "appServicePlanSku": {
@@ -84,13 +61,37 @@
             "metadata": {
                 "description": "App Service Plan SKU. S1 or higher recommended for production workloads."
             }
+        },
+        "azureAdAppDisplayName": {
+            "type": "string",
+            "metadata": {
+                "description": "Display name for the Azure AD app registration (e.g., 'CIPP MCP OAuth2 App')"
+            }
+        },
+        "copilotStudioRedirectUris": {
+            "type": "array",
+            "defaultValue": [
+                "https://default.directline.botframework.com/oauth/redirect",
+                "https://webchat.botframework.com/oauth/redirect"
+            ],
+            "metadata": {
+                "description": "Redirect URIs for Copilot Studio OAuth2 integration"
+            }
+        },
+        "tenantId": {
+            "type": "string",
+            "defaultValue": "[subscription().tenantId]",
+            "metadata": {
+                "description": "Azure AD Tenant ID for OAuth2 configuration"
+            }
         }
     },
     "variables": {
         "webAppName": "[concat(parameters('baseName'), '-app')]",
         "appServicePlanName": "[concat(parameters('baseName'), '-asp')]",
         "applicationInsightsName": "[concat(parameters('baseName'), '-ai')]",
-        "managedIdentityName": "[concat(parameters('baseName'), '-mi')]"
+        "managedIdentityName": "[concat(parameters('baseName'), '-mi')]",
+        "azureAdAppName": "[concat(parameters('baseName'), '-oauth2-app')]"
     },
     "resources": [
         {
@@ -184,16 +185,8 @@
                             "value": "[parameters('cippApiUrl')]"
                         },
                         {
-                            "name": "CIPP_USER_EMAIL",
-                            "value": "[parameters('cippUserEmail')]"
-                        },
-                        {
-                            "name": "CIPP_USER_ID",
-                            "value": "[parameters('cippUserEmail')]"
-                        },
-                        {
                             "name": "AUTH_MODE",
-                            "value": "[parameters('authMode')]"
+                            "value": "oauth2"
                         },
                         {
                             "name": "USE_REAL_AUTH",
@@ -205,27 +198,19 @@
                         },
                         {
                             "name": "OAUTH2_CLIENT_ID",
-                            "value": "[if(equals(parameters('authMode'), 'oauth2'), concat('@Microsoft.KeyVault(VaultName=', parameters('existingKeyVaultName'), ';SecretName=OAUTH2-CLIENT-ID)'), '')]"
+                            "value": "@Microsoft.KeyVault(VaultName=[parameters('existingKeyVaultName')];SecretName=OAUTH2-CLIENT-ID)"
                         },
                         {
                             "name": "OAUTH2_CLIENT_SECRET",
-                            "value": "[if(equals(parameters('authMode'), 'oauth2'), concat('@Microsoft.KeyVault(VaultName=', parameters('existingKeyVaultName'), ';SecretName=OAUTH2-CLIENT-SECRET)'), '')]"
+                            "value": "@Microsoft.KeyVault(VaultName=[parameters('existingKeyVaultName')];SecretName=OAUTH2-CLIENT-SECRET)"
                         },
                         {
                             "name": "OAUTH2_REDIRECT_URI",
-                            "value": "[if(equals(parameters('authMode'), 'oauth2'), concat('https://', variables('webAppName'), '.azurewebsites.net/oauth/callback'), '')]"
+                            "value": "[concat('https://', variables('webAppName'), '.azurewebsites.net/oauth/callback')]"
                         },
                         {
                             "name": "OAUTH2_SCOPE",
                             "value": "openid profile email offline_access"
-                        },
-                        {
-                            "name": "TOKEN_VALIDATION_ENDPOINT",
-                            "value": "[concat('https://login.microsoftonline.com/', parameters('tenantId'), '/oauth2/v2.0/token')]"
-                        },
-                        {
-                            "name": "ENABLE_USER_DELEGATION",
-                            "value": "[if(equals(parameters('authMode'), 'oauth2'), 'true', 'false')]"
                         },
                         {
                             "name": "REQUEST_TIMEOUT",
@@ -242,6 +227,14 @@
                         {
                             "name": "MAX_CONCURRENT_REQUESTS",
                             "value": "5"
+                        },
+                        {
+                            "name": "ENABLE_USER_DELEGATION",
+                            "value": "true"
+                        },
+                        {
+                            "name": "TOKEN_VALIDATION_ENDPOINT",
+                            "value": "[concat('https://login.microsoftonline.com/', parameters('tenantId'), '/oauth2/v2.0/token')]"
                         }
                     ]
                 }
@@ -265,31 +258,94 @@
             "type": "string",
             "value": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentityName'))).clientId]"
         },
-        "authMode": {
-            "type": "string",
-            "value": "[parameters('authMode')]"
-        },
         "oauthRedirectUri": {
             "type": "string",
-            "value": "[if(equals(parameters('authMode'), 'oauth2'), concat('https://', reference(resourceId('Microsoft.Web/sites', variables('webAppName'))).defaultHostName, '/oauth/callback'), 'N/A - Not using OAuth2')]"
+            "value": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('webAppName'))).defaultHostName, '/oauth/callback')]"
         },
-        "azureAdConfiguration": {
+        "azureAdAppConfiguration": {
             "type": "object",
             "value": {
-                "tenantId": "[parameters('tenantId')]",
-                "authorizationUrl": "[concat('https://login.microsoftonline.com/', parameters('tenantId'), '/oauth2/v2.0/authorize')]",
-                "tokenUrl": "[concat('https://login.microsoftonline.com/', parameters('tenantId'), '/oauth2/v2.0/token')]",
-                "scope": "openid profile email offline_access",
-                "redirectUri": "[if(equals(parameters('authMode'), 'oauth2'), concat('https://', reference(resourceId('Microsoft.Web/sites', variables('webAppName'))).defaultHostName, '/oauth/callback'), 'N/A')]"
+                "displayName": "[parameters('azureAdAppDisplayName')]",
+                "redirectUris": "[parameters('copilotStudioRedirectUris')]",
+                "mcpServerRedirectUri": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('webAppName'))).defaultHostName, '/oauth/callback')]",
+                "requiredScopes": [
+                    "openid",
+                    "profile",
+                    "email",
+                    "offline_access"
+                ]
             }
         },
-        "postDeploymentInstructions": {
+        "postDeploymentSteps": {
             "type": "object",
-            "value": "[if(equals(parameters('authMode'), 'oauth2'), createObject('mode', 'OAuth2 User-Delegated Authentication', 'step1', 'Create Azure AD App Registration: Go to Azure Portal > Azure Active Directory > App registrations > New registration', 'step2', 'Configure App: Name it something like \"CIPP MCP OAuth2 App\", set redirect URI to the oauthRedirectUri output value', 'step3', 'Create Client Secret: Go to Certificates & secrets > New client secret (2-year expiry recommended)', 'step4', 'Store Secrets: Add OAUTH2-CLIENT-ID and OAUTH2-CLIENT-SECRET to your Key Vault', 'step5', 'Grant Key Vault Access: Ensure managed identity can read secrets', 'step6', 'Configure Copilot Studio: Use OAuth2 authentication with the azureAdConfiguration values'), createObject('mode', 'Key Vault Authentication', 'step1', 'Add CIPP secrets to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN', 'step2', 'Grant managed identity access to Key Vault with Get/List permissions'))]"
+            "value": {
+                "step1": {
+                    "title": "Create Azure AD App Registration",
+                    "description": "Create an Azure AD app registration for OAuth2 authentication",
+                    "actions": [
+                        "Go to Azure Portal > Azure Active Directory > App registrations",
+                        "Click 'New registration'",
+                        "Name: Use the azureAdAppDisplayName parameter value",
+                        "Supported account types: Accounts in this organizational directory only",
+                        "Redirect URI: Add Web platform URIs from the azureAdAppConfiguration output",
+                        "After creation, note the Application (client) ID"
+                    ]
+                },
+                "step2": {
+                    "title": "Configure App Registration",
+                    "description": "Set up authentication and API permissions",
+                    "actions": [
+                        "Go to Authentication > Add platform > Web",
+                        "Add all redirect URIs from azureAdAppConfiguration output",
+                        "Enable 'Access tokens' and 'ID tokens'",
+                        "Go to Certificates & secrets > New client secret",
+                        "Copy the secret value (you won't see it again)"
+                    ]
+                },
+                "step3": {
+                    "title": "Store Secrets in Key Vault",
+                    "description": "Add OAuth2 secrets to Key Vault",
+                    "secrets": [
+                        {
+                            "name": "OAUTH2-CLIENT-ID",
+                            "value": "Application (client) ID from Azure AD app registration"
+                        },
+                        {
+                            "name": "OAUTH2-CLIENT-SECRET",
+                            "value": "Client secret value from Azure AD app registration"
+                        }
+                    ]
+                },
+                "step4": {
+                    "title": "Grant Key Vault Access",
+                    "description": "Ensure managed identity can access Key Vault",
+                    "actions": [
+                        "Go to Key Vault > Access policies",
+                        "Add access policy for managed identity with Get and List permissions",
+                        "Managed Identity name is in managedIdentityName output"
+                    ]
+                },
+                "step5": {
+                    "title": "Configure Copilot Studio Custom Connector",
+                    "description": "Set up OAuth2 authentication in Copilot Studio",
+                    "actions": [
+                        "In Copilot Studio, edit your custom connector",
+                        "Go to Security tab",
+                        "Change authentication type to 'OAuth 2.0'",
+                        "Identity Provider: 'Azure Active Directory'",
+                        "Client ID: Use the Application (client) ID",
+                        "Client Secret: Use the client secret value",
+                        "Authorization URL: https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/authorize",
+                        "Token URL: https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token",
+                        "Refresh URL: https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token",
+                        "Scope: openid profile email offline_access"
+                    ]
+                }
+            }
         },
         "nextSteps": {
             "type": "string",
-            "value": "[if(equals(parameters('authMode'), 'oauth2'), concat('OAUTH2 MODE: 1. Create Azure AD app registration with redirect URI: ', reference(resourceId('Microsoft.Web/sites', variables('webAppName'))).defaultHostName, '/oauth/callback. 2. Store OAUTH2-CLIENT-ID and OAUTH2-CLIENT-SECRET in Key Vault (', parameters('existingKeyVaultName'), '). 3. Grant managed identity (', variables('managedIdentityName'), ') access to Key Vault. 4. Configure Copilot Studio with OAuth2 using the azureAdConfiguration output values.'), concat('KEYVAULT MODE: 1. Grant managed identity (', variables('managedIdentityName'), ') access to Key Vault (', parameters('existingKeyVaultName'), ') with Get/List permissions. 2. Add CIPP secrets to Key Vault: CIPP-APPLICATION-ID, CIPP-APPLICATION-SECRET, CIPP-REFRESH-TOKEN. 3. Configure CI/CD: Go to Web App > Deployment Center > GitHub > Select your repository and branch.'))]"
+            "value": "[concat('OAUTH2 DEPLOYMENT COMPLETE: 1. Create Azure AD app registration using the configuration in azureAdAppConfiguration output. 2. Store OAUTH2-CLIENT-ID and OAUTH2-CLIENT-SECRET in Key Vault (', parameters('existingKeyVaultName'), '). 3. Grant managed identity (', variables('managedIdentityName'), ') Get/List permissions on Key Vault. 4. Configure Copilot Studio Custom Connector with OAuth2 authentication using the postDeploymentSteps guidance. 5. Test OAuth2 flow with individual user authentication and CIPP role inheritance.')]"
         },
         "deploymentInstructions": {
             "type": "string",
